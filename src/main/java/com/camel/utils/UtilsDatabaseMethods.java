@@ -10,6 +10,8 @@ import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Mateusz Dobrowolski on 30.11.2016.
@@ -52,6 +54,28 @@ public class UtilsDatabaseMethods {
         userPojo.setDateModificationAccount(userRecord.getDataModificationAccount());
         userPojo.setStatus(userRecord.getStatus());
         String resultJson = gson.toJson(userPojo);
+        return resultJson;
+    }
+
+    public static String getUsers() {
+        Gson gson = new Gson();
+        User user = User.USER;
+        List<UserPojo> userPojos = new ArrayList<UserPojo>();
+        List<UserRecord> userRecords = getDslContext().
+                selectFrom(user)
+                .fetch();
+        for(UserRecord userRecord : userRecords) {
+            UserPojo userPojo = new UserPojo();
+            userPojo.setIdUser(userRecord.getIdUser());
+            userPojo.setFirstname(userRecord.getFirstname());
+            userPojo.setSurname(userRecord.getSurname());
+            userPojo.setEmail(userRecord.getEmail());
+            userPojo.setDateCreateAccount(userRecord.getDataCreateAccount());
+            userPojo.setDateModificationAccount(userRecord.getDataModificationAccount());
+            userPojo.setStatus(userRecord.getStatus());
+            userPojos.add(userPojo);
+        }
+        String resultJson = gson.toJson(userPojos);
         return resultJson;
     }
 

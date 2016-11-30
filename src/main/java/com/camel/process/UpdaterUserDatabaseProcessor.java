@@ -3,8 +3,6 @@ package com.camel.process;
 import com.camel.pojos.UserPojo;
 import com.camel.utils.UtilsDatabaseMethods;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
