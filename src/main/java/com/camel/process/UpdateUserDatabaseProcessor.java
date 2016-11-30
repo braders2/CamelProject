@@ -9,7 +9,7 @@ import org.apache.camel.Processor;
 /**
  * Created by Mateusz Dobrowolski on 29.11.2016.
  */
-public class UpdaterUserDatabaseProcessor implements Processor {
+public class UpdateUserDatabaseProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
         Gson gson = new Gson();
         String userJsonString = exchange.getIn().getBody(String.class);

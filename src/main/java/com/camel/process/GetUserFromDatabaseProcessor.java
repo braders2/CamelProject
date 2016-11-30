@@ -9,8 +9,8 @@ import org.apache.camel.Processor;
  */
 public class GetUserFromDatabaseProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
-       String idUser = UtilsDatabaseMethods.getUser(exchange.getIn()
+       String userJson = UtilsDatabaseMethods.getUser(exchange.getIn()
                                                .getHeader("id").toString());
-       exchange.getOut().setBody(idUser);
+       exchange.getOut().setBody(userJson);
     }
 }

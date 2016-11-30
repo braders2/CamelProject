@@ -2,10 +2,13 @@ package com.camel.utils;
 
 import com.camel.pojos.ProjectPojo;
 import com.camel.pojos.UserPojo;
+import com.camel.pojos.UserProjectsPojo;
 import com.camel.tables.tables.User;
 import com.camel.tables.tables.records.UserRecord;
 import com.camel.tables.tables.Project;
 import com.camel.tables.tables.records.ProjectRecord;
+import com.camel.tables.tables.UserProject;
+import com.camel.tables.tables.records.UserProjectRecord;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.jooq.DSLContext;
@@ -54,8 +57,8 @@ public class UtilsDatabaseMethods {
         userPojo.setFirstname(userRecord.getFirstname());
         userPojo.setSurname(userRecord.getSurname());
         userPojo.setEmail(userRecord.getEmail());
-        userPojo.setDateCreateAccount(userRecord.getDataCreateAccount());
-        userPojo.setDateModificationAccount(userRecord.getDataModificationAccount());
+        userPojo.setDataCreateAccount(userRecord.getDataCreateAccount());
+        userPojo.setDataModificationAccount(userRecord.getDataModificationAccount());
         userPojo.setStatus(userRecord.getStatus());
         String resultJson = gson.toJson(userPojo);
         return resultJson;
@@ -68,14 +71,14 @@ public class UtilsDatabaseMethods {
         List<UserRecord> userRecords = getDslContext().
                 selectFrom(user)
                 .fetch();
-        for(UserRecord userRecord : userRecords) {
+        for (UserRecord userRecord : userRecords) {
             UserPojo userPojo = new UserPojo();
             userPojo.setIdUser(userRecord.getIdUser());
             userPojo.setFirstname(userRecord.getFirstname());
             userPojo.setSurname(userRecord.getSurname());
             userPojo.setEmail(userRecord.getEmail());
-            userPojo.setDateCreateAccount(userRecord.getDataCreateAccount());
-            userPojo.setDateModificationAccount(userRecord.getDataModificationAccount());
+            userPojo.setDataCreateAccount(userRecord.getDataCreateAccount());
+            userPojo.setDataModificationAccount(userRecord.getDataModificationAccount());
             userPojo.setStatus(userRecord.getStatus());
             userPojos.add(userPojo);
         }
@@ -125,7 +128,7 @@ public class UtilsDatabaseMethods {
         List<ProjectRecord> projectRecords = getDslContext().
                 selectFrom(project)
                 .fetch();
-        for(ProjectRecord projectRecord : projectRecords) {
+        for (ProjectRecord projectRecord : projectRecords) {
             ProjectPojo projectPojo = new ProjectPojo();
             projectPojo.setIdProject(projectRecord.getIdProject());
             projectPojo.setName(projectRecord.getName());
@@ -134,6 +137,33 @@ public class UtilsDatabaseMethods {
             projectPojos.add(projectPojo);
         }
         String resultJson = gson.toJson(projectPojos);
+        return resultJson;
+    }
+
+    public static String updateProject(ProjectPojo projectPojo) {
+        Gson gson = new Gson();
+        Project project = Project.PROJECT;
+        ProjectRecord projectRecord = getDslContext().newRecord(project, projectPojo);
+        int successUpdateRecords = getDslContext().executeUpdate(projectRecord);
+        return gson.toJson(successUpdateRecords);
+    }
+
+    public static String getUserProjects(String idUser) {
+        Gson gson = new Gson();
+        UserProject userProject = UserProject.USER_PROJECT;
+        List<UserProjectRecord> userProjectRecordList = getDslContext().
+                selectFrom(userProject)
+                .where(userProject.USERS_ID_USER.equal(Integer.parseInt(idUser)))
+                .fetch();
+        UserProjectsPojo userProjectsPojo = new UserProjectsPojo();
+        userProjectsPojo.setUserPojo(gson.fromJson(getUser(idUser), UserPojo.class));
+        for(UserProjectRecord userProjectRecord : userProjectRecordList) {
+            ProjectPojo projectPojo = gson.fromJson(getProject(userProjectRecord.getProjectsIdProject().toString()), ProjectPojo.class);
+            userProjectsPojo.addProject(projectPojo);
+            userProjectsPojo.setDateFrom(userProjectRecord.getDateFrom());
+            userProjectsPojo.setDateTo(userProjectRecord.getDateTo());
+        }
+        String resultJson = gson.toJson(userProjectsPojo);
         return resultJson;
     }
 }

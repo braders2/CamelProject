@@ -1,5 +1,6 @@
 package com.camel.pojos;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +14,9 @@ public class UserPojo {
     private String firstname;
     private String surname;
     private String email;
-    private Timestamp dateCreateAccount;
-    private Timestamp dateModificationAccount;
+    @SerializedName("data_create_account")
+    private Timestamp dataCreateAccount;
+    @SerializedName("data_modification_account")
+    private Timestamp dataModificationAccount;
     private int status;
 }

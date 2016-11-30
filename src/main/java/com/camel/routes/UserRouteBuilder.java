@@ -32,7 +32,7 @@ public class UserRouteBuilder extends RouteBuilder {
                 .body();
 
         from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.PUT))
-                .process(new UpdaterUserDatabaseProcessor())
+                .process(new UpdateUserDatabaseProcessor())
                 .transform()
                 .body();
     }

@@ -12,11 +12,7 @@ public class ProjectRouteBuilder extends RouteBuilder {
     private final static String RESOURCE = "project";
 
     public void configure() throws Exception {
-        onException(Exception.class)
-                .handled(true)
-                .process(new FailureResponseProcessor())
-                .transform()
-                .body();
+
 
         from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.GET))
                 .process(new GetProjectFromDatabaseProcessor())
@@ -34,7 +30,7 @@ public class ProjectRouteBuilder extends RouteBuilder {
                 .body();
 
         from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.PUT))
-                .process(new UpdaterUserDatabaseProcessor())
+                .process(new UpdateProjectDatabaseProcessor())
                 .transform()
                 .body();
     }
