@@ -1,5 +1,6 @@
 package com.camel;
 
+import com.camel.routes.ProjectRouteBuilder;
 import com.camel.routes.UserRouteBuilder;
 import com.camel.utils.UtilsDatabaseJooq;
 import org.apache.camel.CamelContext;
@@ -19,9 +20,10 @@ public class Main {
 
     public static CamelContext initializeCamel() throws Exception {
         CamelContext camelContext = new DefaultCamelContext();
-        UserRouteBuilder testRouteBuilder = new UserRouteBuilder();
-
-        camelContext.addRoutes(testRouteBuilder);
+        UserRouteBuilder userRouteBuilder = new UserRouteBuilder();
+        ProjectRouteBuilder projectRouteBuilder = new ProjectRouteBuilder();
+        camelContext.addRoutes(userRouteBuilder);
+        camelContext.addRoutes(projectRouteBuilder);
         return camelContext;
     }
 }

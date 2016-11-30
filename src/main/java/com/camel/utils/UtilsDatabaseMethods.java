@@ -1,14 +1,18 @@
 package com.camel.utils;
 
+import com.camel.pojos.ProjectPojo;
 import com.camel.pojos.UserPojo;
 import com.camel.tables.tables.User;
 import com.camel.tables.tables.records.UserRecord;
+import com.camel.tables.tables.Project;
+import com.camel.tables.tables.records.ProjectRecord;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,5 +89,51 @@ public class UtilsDatabaseMethods {
         UserRecord userRecord = getDslContext().newRecord(user, userPojo);
         int successUpdateRecords = getDslContext().executeUpdate(userRecord);
         return gson.toJson(successUpdateRecords);
+    }
+
+    public static void insertProject(JsonObject jsonObject) {
+        Project project = Project.PROJECT;
+        ProjectRecord projectRecord = getDslContext().newRecord(project);
+        projectRecord.setName(jsonObject.get("project_name").getAsString());
+        projectRecord.setTimeFrom(Date.valueOf(jsonObject.get("time_from").getAsString()));
+        projectRecord.setTimeTo(Date.valueOf(jsonObject.get("time_to").getAsString()));
+        projectRecord.store();
+    }
+
+    public static String getProject(String idProject) {
+        Gson gson = new Gson();
+        ProjectPojo projectPojo = new ProjectPojo();
+        Project project = Project.PROJECT;
+        ProjectRecord projectRecord = getDslContext().
+                selectFrom(project).
+                where(project.ID_PROJECT.equal(Integer.parseInt(idProject)))
+                .fetchOne();
+
+        projectPojo.setIdProject(projectRecord.getIdProject());
+        projectPojo.setName(projectRecord.getName());
+        projectPojo.setTimeFrom(projectRecord.getTimeFrom());
+        projectPojo.setTimeTo(projectRecord.getTimeTo());
+
+        String resultJson = gson.toJson(projectPojo);
+        return resultJson;
+    }
+
+    public static String getProjects() {
+        Gson gson = new Gson();
+        Project project = Project.PROJECT;
+        List<ProjectPojo> projectPojos = new ArrayList<ProjectPojo>();
+        List<ProjectRecord> projectRecords = getDslContext().
+                selectFrom(project)
+                .fetch();
+        for(ProjectRecord projectRecord : projectRecords) {
+            ProjectPojo projectPojo = new ProjectPojo();
+            projectPojo.setIdProject(projectRecord.getIdProject());
+            projectPojo.setName(projectRecord.getName());
+            projectPojo.setTimeFrom(projectRecord.getTimeFrom());
+            projectPojo.setTimeTo(projectRecord.getTimeTo());
+            projectPojos.add(projectPojo);
+        }
+        String resultJson = gson.toJson(projectPojos);
+        return resultJson;
     }
 }
