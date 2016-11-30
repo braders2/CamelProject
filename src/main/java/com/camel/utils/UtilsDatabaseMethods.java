@@ -6,7 +6,6 @@ import com.camel.tables.tables.records.UserRecord;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.jooq.DSLContext;
-import org.jooq.RecordHandler;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
@@ -36,14 +35,15 @@ public class UtilsDatabaseMethods {
         userRecord.store();
     }
 
-    public static String getUser(String firstname) {
+    public static String getUser(String idUser) {
         Gson gson = new Gson();
         UserPojo userPojo = new UserPojo();
         User user = User.USER;
         UserRecord userRecord = getDslContext().
                 selectFrom(user).
-                where(user.FIRSTNAME.equal(firstname))
+                where(user.ID_USER.equal(Integer.parseInt(idUser)))
                 .fetchOne();
+
         userPojo.setIdUser(userRecord.getIdUser());
         userPojo.setFirstname(userRecord.getFirstname());
         userPojo.setSurname(userRecord.getSurname());
@@ -55,4 +55,11 @@ public class UtilsDatabaseMethods {
         return resultJson;
     }
 
+    public static String updateUser(UserPojo userPojo) {
+        Gson gson = new Gson();
+        User user = User.USER;
+        UserRecord userRecord = getDslContext().newRecord(user, userPojo);
+        int successUpdateRecords = getDslContext().executeUpdate(userRecord);
+        return gson.toJson(successUpdateRecords);
+    }
 }
