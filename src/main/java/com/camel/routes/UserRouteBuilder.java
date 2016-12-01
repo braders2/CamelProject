@@ -8,7 +8,6 @@ import org.restlet.data.Method;
 public class UserRouteBuilder extends RouteBuilder {
     private final static String RESOURCE = "user";
 
-
     public void configure() throws Exception {
         onException(Exception.class)
                 .handled(true)
@@ -33,6 +32,11 @@ public class UserRouteBuilder extends RouteBuilder {
 
         from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.PUT))
                 .process(new UpdateUserDatabaseProcessor())
+                .transform()
+                .body();
+
+        from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.DELETE))
+                .process(new DeleteUserFromDatabaseProcessor())
                 .transform()
                 .body();
     }

@@ -13,7 +13,6 @@ public class ProjectRouteBuilder extends RouteBuilder {
 
     public void configure() throws Exception {
 
-
         from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.GET))
                 .process(new GetProjectFromDatabaseProcessor())
                 .transform()
@@ -31,6 +30,11 @@ public class ProjectRouteBuilder extends RouteBuilder {
 
         from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.PUT))
                 .process(new UpdateProjectDatabaseProcessor())
+                .transform()
+                .body();
+
+        from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.DELETE))
+                .process(new DeleteProjectFromDatabaseProcessor())
                 .transform()
                 .body();
     }

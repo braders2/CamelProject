@@ -1,7 +1,6 @@
 package com.camel.process;
 
 import com.camel.pojos.ProjectPojo;
-import com.camel.pojos.UserPojo;
 import com.camel.utils.UtilsDatabaseMethods;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

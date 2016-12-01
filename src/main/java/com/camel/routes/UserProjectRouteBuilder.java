@@ -1,6 +1,5 @@
 package com.camel.routes;
 
-import com.camel.process.GetUserFromDatabaseProcessor;
 import com.camel.process.GetUserProjectFromDatabaseProcessor;
 import com.camel.utils.Const;
 import org.apache.camel.builder.RouteBuilder;

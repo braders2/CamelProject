@@ -7,9 +7,9 @@ import org.apache.camel.Processor;
 /**
  * Created by Mateusz Dobrowolski on 29.11.2016.
  */
-public class GetProjectFromDatabaseProcessor implements Processor {
+public class DeleteProjectFromDatabaseProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
-       String projectJson = UtilsDatabaseMethods.getProject(exchange.getIn()
+       String projectJson = UtilsDatabaseMethods.deleteProject(exchange.getIn()
                                                .getHeader("id").toString());
        exchange.getOut().setBody(projectJson);
     }

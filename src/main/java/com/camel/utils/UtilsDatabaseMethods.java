@@ -3,12 +3,12 @@ package com.camel.utils;
 import com.camel.pojos.ProjectPojo;
 import com.camel.pojos.UserPojo;
 import com.camel.pojos.UserProjectsPojo;
-import com.camel.tables.tables.User;
-import com.camel.tables.tables.records.UserRecord;
 import com.camel.tables.tables.Project;
-import com.camel.tables.tables.records.ProjectRecord;
+import com.camel.tables.tables.User;
 import com.camel.tables.tables.UserProject;
+import com.camel.tables.tables.records.ProjectRecord;
 import com.camel.tables.tables.records.UserProjectRecord;
+import com.camel.tables.tables.records.UserRecord;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.jooq.DSLContext;
@@ -86,6 +86,15 @@ public class UtilsDatabaseMethods {
         return resultJson;
     }
 
+    public static String deleteUser(String idUser) {
+        Gson gson = new Gson();
+        User user = User.USER;
+        UserRecord userRecord = getDslContext().fetchOne(user, user.ID_USER.equal(Integer.valueOf(idUser)));
+        int successDeleteRecords = userRecord.delete();
+        String resultJson = gson.toJson(successDeleteRecords);
+        return resultJson;
+    }
+
     public static String updateUser(UserPojo userPojo) {
         Gson gson = new Gson();
         User user = User.USER;
@@ -140,6 +149,16 @@ public class UtilsDatabaseMethods {
         return resultJson;
     }
 
+    public static String deleteProject(String idProject) {
+        Gson gson = new Gson();
+        Project project = Project.PROJECT;
+        ProjectRecord projectRecord = getDslContext()
+                .fetchOne(project, project.ID_PROJECT.equal(Integer.valueOf(idProject)));
+        int successDeleteRecord = projectRecord.delete();
+        String resultJson = gson.toJson(successDeleteRecord);
+        return resultJson;
+    }
+
     public static String updateProject(ProjectPojo projectPojo) {
         Gson gson = new Gson();
         Project project = Project.PROJECT;
@@ -150,14 +169,15 @@ public class UtilsDatabaseMethods {
 
     public static String getUserProjects(String idUser) {
         Gson gson = new Gson();
-        UserProject userProject = UserProject.USER_PROJECT;
-        List<UserProjectRecord> userProjectRecordList = getDslContext().
-                selectFrom(userProject)
-                .where(userProject.USERS_ID_USER.equal(Integer.parseInt(idUser)))
-                .fetch();
         UserProjectsPojo userProjectsPojo = new UserProjectsPojo();
+        UserProject userProjectTable = UserProject.USER_PROJECT;
+        List<UserProjectRecord> userProjectRecordList = getDslContext().
+                selectFrom(userProjectTable)
+                .where(userProjectTable.USERS_ID_USER.equal(Integer.parseInt(idUser)))
+                .fetch();
+
         userProjectsPojo.setUserPojo(gson.fromJson(getUser(idUser), UserPojo.class));
-        for(UserProjectRecord userProjectRecord : userProjectRecordList) {
+        for (UserProjectRecord userProjectRecord : userProjectRecordList) {
             ProjectPojo projectPojo = gson.fromJson(getProject(userProjectRecord.getProjectsIdProject().toString()), ProjectPojo.class);
             userProjectsPojo.addProject(projectPojo);
             userProjectsPojo.setDateFrom(userProjectRecord.getDateFrom());
