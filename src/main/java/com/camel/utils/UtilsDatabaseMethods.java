@@ -48,20 +48,24 @@ public class UtilsDatabaseMethods {
         Gson gson = new Gson();
         UserPojo userPojo = new UserPojo();
         User user = User.USER;
-        UserRecord userRecord = getDslContext().
-                selectFrom(user).
-                where(user.ID_USER.equal(Integer.parseInt(idUser)))
-                .fetchOne();
+        try {
+            UserRecord userRecord = getDslContext().
+                    selectFrom(user).
+                    where(user.ID_USER.equal(Integer.parseInt(idUser)))
+                    .fetchOne();
 
-        userPojo.setIdUser(userRecord.getIdUser());
-        userPojo.setFirstname(userRecord.getFirstname());
-        userPojo.setSurname(userRecord.getSurname());
-        userPojo.setEmail(userRecord.getEmail());
-        userPojo.setDataCreateAccount(userRecord.getDataCreateAccount());
-        userPojo.setDataModificationAccount(userRecord.getDataModificationAccount());
-        userPojo.setStatus(userRecord.getStatus());
-        String resultJson = gson.toJson(userPojo);
-        return resultJson;
+            userPojo.setIdUser(userRecord.getIdUser());
+            userPojo.setFirstname(userRecord.getFirstname());
+            userPojo.setSurname(userRecord.getSurname());
+            userPojo.setEmail(userRecord.getEmail());
+            userPojo.setDataCreateAccount(userRecord.getDataCreateAccount());
+            userPojo.setDataModificationAccount(userRecord.getDataModificationAccount());
+            userPojo.setStatus(userRecord.getStatus());
+            String resultJson = gson.toJson(userPojo);
+            return resultJson;
+        } catch (NullPointerException exception) {
+            return Const.EMPTY_STRING;
+        }
     }
 
     public static String getUsers() {

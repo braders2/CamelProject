@@ -9,7 +9,6 @@ import org.apache.camel.impl.DefaultCamelContext;
 
 public class Main {
     public static void main(String args[]) throws Exception {
-
         CamelContext camelContext = initializeCamel();
         UtilsDatabaseJooq.initialzeConnection();
         camelContext.start();
@@ -21,6 +20,7 @@ public class Main {
 
     public static CamelContext initializeCamel() throws Exception {
         CamelContext camelContext = new DefaultCamelContext();
+        camelContext.setHandleFault(true);
         UserRouteBuilder userRouteBuilder = new UserRouteBuilder();
         ProjectRouteBuilder projectRouteBuilder = new ProjectRouteBuilder();
         UserProjectRouteBuilder userProjectRouteBuilder = new UserProjectRouteBuilder();

@@ -9,11 +9,11 @@ import org.apache.camel.Processor;
  */
 public class FailureResponseProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
-        Exception e = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class);
-        StringBuilder errorStringBuilder = new StringBuilder();
-        errorStringBuilder.append("Error: ");
-        errorStringBuilder.append(e.getCause());
         Gson gson = new Gson();
+        StringBuilder errorStringBuilder = new StringBuilder();
+        Exception exception = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class);
+        errorStringBuilder.append("Error: ");
+        errorStringBuilder.append(exception.getMessage());
         exchange.getOut().setBody(gson.toJson(errorStringBuilder));
     }
 }

@@ -22,6 +22,7 @@ public class UserRouteBuilder extends RouteBuilder {
 
         from(String.format("%s%s%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.GET))
                 .process(new GetUsersFromDatabaseProcessor())
+                .tracing()
                 .transform()
                 .body();
 
