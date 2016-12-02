@@ -1,6 +1,7 @@
 package com.camel.process;
 
-import com.camel.utils.UtilsDatabaseMethods;
+import com.camel.utils.UserDto;
+import com.camel.utils.UserProjectDto;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
@@ -9,7 +10,7 @@ import org.apache.camel.Processor;
  */
 public class GetUserProjectFromDatabaseProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
-        String userProjectsJson = UtilsDatabaseMethods.getUserProjects(exchange.getIn()
+        String userProjectsJson = UserProjectDto.getUserProjects(exchange.getIn()
                                             .getHeader("id").toString());
         exchange.getOut().setHeader("Content-type", "application/json");
         exchange.getOut().setBody(userProjectsJson);

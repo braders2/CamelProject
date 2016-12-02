@@ -1,6 +1,6 @@
 package com.camel.process;
 
-import com.camel.utils.UtilsDatabaseMethods;
+import com.camel.utils.UserDto;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -16,6 +16,6 @@ public class InsertUserToDatabaseProcessor implements Processor {
         String userJsonString = exchange.getIn().getBody(String.class);
         JsonElement userJsonElement = gson.fromJson(userJsonString, JsonElement.class);
         JsonObject userJsonObject = userJsonElement.getAsJsonObject();
-        UtilsDatabaseMethods.insertUser(userJsonObject);
+        UserDto.insertUser(userJsonObject);
     }
 }

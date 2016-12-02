@@ -1,6 +1,6 @@
 package com.camel.process;
 
-import com.camel.utils.UtilsDatabaseMethods;
+import com.camel.utils.UserDto;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
@@ -9,7 +9,7 @@ import org.apache.camel.Processor;
  */
 public class GetUsersFromDatabaseProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
-        String jsonListUsers = UtilsDatabaseMethods.getUsers();
+        String jsonListUsers = UserDto.getUsers();
         exchange.getOut().setHeader("Content-type", "application/json");
         exchange.getOut().setBody(jsonListUsers);
     }

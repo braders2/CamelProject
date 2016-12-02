@@ -1,5 +1,9 @@
 package com.camel.utils;
 
+import org.jooq.DSLContext;
+import org.jooq.SQLDialect;
+import org.jooq.impl.DSL;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,11 +12,19 @@ import java.sql.SQLException;
  * Created by Mateusz Dobrowolski on 29.11.2016.
  */
 public class UtilsDatabaseJooq {
-    public static final String USERNAME = "root";
-    public static final String PASSWORD = "";
-    public static final String URL = "jdbc:mysql://localhost:3306/database";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "";
+    private static final String URL = "jdbc:mysql://localhost:3306/database";
 
-    public static Connection connection;
+    private static Connection connection;
+    private static DSLContext dslContext;
+
+    public static DSLContext getDslContext() {
+        if (dslContext == null) {
+            dslContext = DSL.using(UtilsDatabaseJooq.connection, SQLDialect.MYSQL);
+        }
+        return dslContext;
+    }
 
     public static void initialzeConnection() {
         try {

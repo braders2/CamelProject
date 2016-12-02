@@ -1,7 +1,7 @@
 package com.camel.process;
 
 import com.camel.pojos.UserPojo;
-import com.camel.utils.UtilsDatabaseMethods;
+import com.camel.utils.UserDto;
 import com.google.gson.Gson;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -15,7 +15,7 @@ public class UpdateUserDatabaseProcessor implements Processor {
         String userJsonString = exchange.getIn().getBody(String.class);
         UserPojo userPojo = gson.fromJson(userJsonString, UserPojo.class);
         userPojo.setIdUser(exchange.getIn().getHeader("id", Integer.class));
-        String json = UtilsDatabaseMethods.updateUser(userPojo);
+        String json = UserDto.updateUser(userPojo);
         exchange.getOut().setHeader("Content-type", "application/json");
         exchange.getOut().setBody(json);
     }
