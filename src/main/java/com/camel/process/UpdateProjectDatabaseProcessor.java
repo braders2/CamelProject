@@ -18,6 +18,7 @@ public class UpdateProjectDatabaseProcessor implements Processor {
         projectPojo.setIdProject(exchange.getIn().getHeader("id", Integer.class));
         String json = UtilsDatabaseMethods.updateProject(projectPojo);
 
+        exchange.getOut().setHeader("Content-type", "application/json");
         exchange.getOut().setBody(json);
     }
 }

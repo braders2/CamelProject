@@ -16,7 +16,7 @@ public class UpdateUserDatabaseProcessor implements Processor {
         UserPojo userPojo = gson.fromJson(userJsonString, UserPojo.class);
         userPojo.setIdUser(exchange.getIn().getHeader("id", Integer.class));
         String json = UtilsDatabaseMethods.updateUser(userPojo);
-
+        exchange.getOut().setHeader("Content-type", "application/json");
         exchange.getOut().setBody(json);
     }
 }

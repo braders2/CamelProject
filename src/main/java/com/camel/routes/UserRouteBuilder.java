@@ -9,6 +9,7 @@ public class UserRouteBuilder extends RouteBuilder {
     private final static String RESOURCE = "user";
 
     public void configure() throws Exception {
+
         onException(Exception.class)
                 .handled(true)
                 .process(new FailureResponseProcessor())

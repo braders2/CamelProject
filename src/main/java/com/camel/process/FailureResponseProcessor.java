@@ -14,6 +14,7 @@ public class FailureResponseProcessor implements Processor {
         Exception exception = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class);
         errorStringBuilder.append("Error: ");
         errorStringBuilder.append(exception.getMessage());
+        exchange.getOut().setHeader("Content-type", "application/json");
         exchange.getOut().setBody(gson.toJson(errorStringBuilder));
     }
 }

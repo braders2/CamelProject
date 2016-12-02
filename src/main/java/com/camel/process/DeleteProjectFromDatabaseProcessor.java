@@ -11,6 +11,7 @@ public class DeleteProjectFromDatabaseProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
        String projectJson = UtilsDatabaseMethods.deleteProject(exchange.getIn()
                                                .getHeader("id").toString());
+       exchange.getOut().setHeader("Content-type", "application/json");
        exchange.getOut().setBody(projectJson);
     }
 }

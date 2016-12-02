@@ -11,6 +11,7 @@ public class GetUserProjectFromDatabaseProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
         String userProjectsJson = UtilsDatabaseMethods.getUserProjects(exchange.getIn()
                                             .getHeader("id").toString());
+        exchange.getOut().setHeader("Content-type", "application/json");
         exchange.getOut().setBody(userProjectsJson);
     }
 }

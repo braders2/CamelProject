@@ -1,5 +1,6 @@
 package com.camel.utils;
 
+import com.camel.exceptions.JsonParserException;
 import com.camel.pojos.ProjectPojo;
 import com.camel.pojos.UserPojo;
 import com.camel.pojos.UserProjectsPojo;
@@ -34,14 +35,18 @@ public class UtilsDatabaseMethods {
     }
 
     public static void insertUser(JsonObject jsonObject) {
-        User user = User.USER;
-        UserRecord userRecord = getDslContext().newRecord(user);
-        userRecord.setFirstname(jsonObject.get("firstname").getAsString());
-        userRecord.setSurname(jsonObject.get("surname").getAsString());
-        userRecord.setEmail(jsonObject.get("email").getAsString());
-        userRecord.setDataCreateAccount(new Timestamp(System.currentTimeMillis()));
-        userRecord.setStatus(jsonObject.get("status").getAsByte());
-        userRecord.store();
+        try {
+            User user = User.USER;
+            UserRecord userRecord = getDslContext().newRecord(user);
+            userRecord.setFirstname(jsonObject.get("firstname").getAsString());
+            userRecord.setSurname(jsonObject.get("surname").getAsString());
+            userRecord.setEmail(jsonObject.get("email").getAsString());
+            userRecord.setDataCreateAccount(new Timestamp(System.currentTimeMillis()));
+            userRecord.setStatus(jsonObject.get("status").getAsByte());
+            userRecord.store();
+        } catch (NullPointerException exception) {
+            throw new JsonParserException();
+        }
     }
 
     public static String getUser(String idUser) {
@@ -108,12 +113,16 @@ public class UtilsDatabaseMethods {
     }
 
     public static void insertProject(JsonObject jsonObject) {
-        Project project = Project.PROJECT;
-        ProjectRecord projectRecord = getDslContext().newRecord(project);
-        projectRecord.setName(jsonObject.get("project_name").getAsString());
-        projectRecord.setTimeFrom(Date.valueOf(jsonObject.get("time_from").getAsString()));
-        projectRecord.setTimeTo(Date.valueOf(jsonObject.get("time_to").getAsString()));
-        projectRecord.store();
+        try {
+            Project project = Project.PROJECT;
+            ProjectRecord projectRecord = getDslContext().newRecord(project);
+            projectRecord.setName(jsonObject.get("project_name").getAsString());
+            projectRecord.setTimeFrom(Date.valueOf(jsonObject.get("time_from").getAsString()));
+            projectRecord.setTimeTo(Date.valueOf(jsonObject.get("time_to").getAsString()));
+            projectRecord.store();
+        } catch (NullPointerException exception) {
+            throw new JsonParserException();
+        }
     }
 
     public static String getProject(String idProject) {

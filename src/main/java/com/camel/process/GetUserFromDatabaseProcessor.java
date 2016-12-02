@@ -17,6 +17,7 @@ public class GetUserFromDatabaseProcessor implements Processor {
             message.setFault(true);
             message.setBody("No data found");
         } else {
+            exchange.getOut().setHeader("Content-type", "application/json");
             exchange.getOut().setBody(userJson);
         }
     }

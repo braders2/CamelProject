@@ -11,6 +11,7 @@ public class DeleteUserFromDatabaseProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
        String userJson = UtilsDatabaseMethods.deleteUser(exchange.getIn()
                                                .getHeader("id").toString());
+       exchange.getOut().setHeader("Content-type", "application/json");
        exchange.getOut().setBody(userJson);
     }
 }

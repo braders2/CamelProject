@@ -9,7 +9,8 @@ import org.apache.camel.Processor;
  */
 public class GetProjectsFromDatabaseProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
-       String jsonAnswer = UtilsDatabaseMethods.getProjects();
-       exchange.getOut().setBody(jsonAnswer);
+        String jsonAnswer = UtilsDatabaseMethods.getProjects();
+        exchange.getOut().setHeader("Content-type", "application/json");
+        exchange.getOut().setBody(jsonAnswer);
     }
 }
