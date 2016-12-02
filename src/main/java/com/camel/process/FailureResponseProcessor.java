@@ -1,6 +1,9 @@
 package com.camel.process;
 
+import com.camel.models.ErrorResponseJsonMessage;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
@@ -9,12 +12,16 @@ import org.apache.camel.Processor;
  */
 public class FailureResponseProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
+        ErrorResponseJsonMessage errorResponseJsonMessage = new ErrorResponseJsonMessage();
         Gson gson = new Gson();
-        StringBuilder errorStringBuilder = new StringBuilder();
         Exception exception = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class);
-        errorStringBuilder.append("Error: ");
-        errorStringBuilder.append(exception.getMessage());
-        exchange.getOut().setHeader("Content-type", "application/json");
-        exchange.getOut().setBody(gson.toJson(errorStringBuilder));
+        errorResponseJsonMessage.setCode("400");
+        errorResponseJsonMessage.setMessage(exception.getMessage());
+        JsonElement jsonElement = gson.toJsonTree(errorResponseJsonMessage);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.add("error", jsonElement);
+        exchange.getOut().setHeader("Accept", "application/json");
+        exchange.getOut().setHeader("Status", "400");
+        exchange.getOut().setBody(jsonObject);
     }
 }

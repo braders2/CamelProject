@@ -1,12 +1,10 @@
 package com.camel.utils;
 
 import com.camel.pojos.ProjectPojo;
-import com.camel.pojos.UserPojo;
 import com.camel.pojos.UserProjectsPojo;
-import com.google.gson.Gson;
-
 import com.camel.tables.tables.UserProject;
 import com.camel.tables.tables.records.UserProjectRecord;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -14,7 +12,7 @@ import java.util.List;
  * Created by Mateusz Dobrowolski on 02.12.2016.
  */
 public class UserProjectDto {
-    public static String getUserProjects(String idUser) {
+    public static UserProjectsPojo getUserProjects(String idUser) {
         Gson gson = new Gson();
         UserProjectsPojo userProjectsPojo = new UserProjectsPojo();
         UserProject userProjectTable = UserProject.USER_PROJECT;
@@ -23,14 +21,13 @@ public class UserProjectDto {
                 .where(userProjectTable.USERS_ID_USER.equal(Integer.parseInt(idUser)))
                 .fetch();
 
-        userProjectsPojo.setUserPojo(gson.fromJson(UserDto.getUser(idUser), UserPojo.class));
+        userProjectsPojo.setUserPojo(UserDto.getUser(idUser));
         for (UserProjectRecord userProjectRecord : userProjectRecordList) {
-            ProjectPojo projectPojo = gson.fromJson(ProjectDto.getProject(userProjectRecord.getProjectsIdProject().toString()), ProjectPojo.class);
+            ProjectPojo projectPojo = ProjectDto.getProject(userProjectRecord.getProjectsIdProject().toString());
             userProjectsPojo.addProject(projectPojo);
             userProjectsPojo.setDateFrom(userProjectRecord.getDateFrom());
             userProjectsPojo.setDateTo(userProjectRecord.getDateTo());
         }
-        String resultJson = gson.toJson(userProjectsPojo);
-        return resultJson;
+        return userProjectsPojo;
     }
 }

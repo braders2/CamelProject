@@ -19,7 +19,7 @@ public class UtilsDatabaseJooq {
     private static Connection connection;
     private static DSLContext dslContext;
 
-    public static DSLContext getDslContext() {
+    private static DSLContext getDslContext() {
         if (dslContext == null) {
             dslContext = DSL.using(UtilsDatabaseJooq.connection, SQLDialect.MYSQL);
         }

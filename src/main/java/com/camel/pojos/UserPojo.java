@@ -18,5 +18,5 @@ public class UserPojo {
     private Timestamp dataCreateAccount;
     @SerializedName("data_modification_account")
     private Timestamp dataModificationAccount;
-    private int status;
+    private byte status;
 }
