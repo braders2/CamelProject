@@ -24,7 +24,9 @@ public class Main {
         camelContext.setHandleFault(true);
         UserRouteBuilder userRouteBuilder = new UserRouteBuilder();
         ProjectRouteBuilder projectRouteBuilder = new ProjectRouteBuilder();
+
         UserProjectRouteBuilder userProjectRouteBuilder = new UserProjectRouteBuilder();
+
         camelContext.addRoutes(userRouteBuilder);
         camelContext.addRoutes(projectRouteBuilder);
         camelContext.addRoutes(userProjectRouteBuilder);
