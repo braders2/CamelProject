@@ -1,4 +1,4 @@
-package com.camel.pojos;
+package com.camel.dto;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
@@ -6,10 +6,9 @@ import lombok.Setter;
 
 import java.sql.Date;
 
-
 @Getter
 @Setter
-public class ProjectPojo {
+public class ProjectDto {
     private int idProject;
     private String name;
     @SerializedName("time_from")
