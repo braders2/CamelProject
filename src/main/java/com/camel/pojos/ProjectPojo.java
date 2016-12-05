@@ -16,4 +16,5 @@ public class ProjectPojo {
     private Date timeFrom;
     @SerializedName("time_to")
     private Date timeTo;
+    private CustomerPojo customerPojo;
 }

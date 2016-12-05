@@ -30,6 +30,9 @@ public class Main {
         camelContext.addRoutes(userRouteBuilder);
         camelContext.addRoutes(projectRouteBuilder);
         camelContext.addRoutes(userProjectRouteBuilder);
+
+//        camelContext.addRoutes(customerRouteBuilder);
+
         return camelContext;
     }
 }
