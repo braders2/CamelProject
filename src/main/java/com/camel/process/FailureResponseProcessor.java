@@ -20,7 +20,7 @@ public class FailureResponseProcessor implements Processor {
         JsonElement jsonElement = gson.toJsonTree(errorResponseJsonMessage);
         JsonObject jsonObject = new JsonObject();
         jsonObject.add("error", jsonElement);
-        exchange.getOut().setHeader("Accept", "application/json");
+        exchange.getOut().setHeader("Content-type", "application/json");
         exchange.getOut().setHeader("Status", "400");
         exchange.getOut().setBody(jsonObject);
     }

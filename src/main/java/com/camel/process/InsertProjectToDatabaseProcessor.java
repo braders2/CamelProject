@@ -23,7 +23,7 @@ public class InsertProjectToDatabaseProcessor implements Processor {
         JsonObject userJsonObject = userJsonElement.getAsJsonObject();
         ProjectDto.insertProject(userJsonObject);
         Map<String, Object> headersMap = new HashMap<String, Object>();
-        headersMap.put("Accept", "application/json");
+        headersMap.put("Content-type", "application/json");
         headersMap.put("Status", "201");
         exchange.getOut().setHeaders(headersMap);
         successResponseJsonMessage.setMessage("Success inserted project");

@@ -22,7 +22,7 @@ public class UpdateUserDatabaseProcessor implements Processor {
         userPojo.setIdUser(exchange.getIn().getHeader("id", Integer.class));
         UserDto.updateUser(userPojo);
         Map<String, Object> headersMap = new HashMap<String, Object>();
-        headersMap.put("Accept", "application/json");
+        headersMap.put("Content-type", "application/json");
         headersMap.put("Status", "200");
         successResponseJsonMessage.setMessage("Success update user");
         exchange.getOut().setHeaders(headersMap);

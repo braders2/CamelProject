@@ -23,7 +23,7 @@ public class UpdateProjectDatabaseProcessor implements Processor {
         projectPojo.setIdProject(exchange.getIn().getHeader("id", Integer.class));
         ProjectDto.updateProject(projectPojo);
         Map<String, Object> headersMap = new HashMap<String, Object>();
-        headersMap.put("Accept", "application/json");
+        headersMap.put("Content-type", "application/json");
         headersMap.put("Status", "200");
         exchange.getOut().setHeaders(headersMap);
         successResponseJsonMessage.setMessage("Success update project");

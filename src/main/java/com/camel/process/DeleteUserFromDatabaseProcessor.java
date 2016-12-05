@@ -19,7 +19,7 @@ public class DeleteUserFromDatabaseProcessor implements Processor {
         UserDto.deleteUser(exchange.getIn()
                 .getHeader("id").toString());
         Map<String, Object> headersMap = new HashMap<String, Object>();
-        headersMap.put("Accept", "application/json");
+        headersMap.put("Content-type", "application/json");
         headersMap.put("Status", "204");
         successResponseJsonMessage.setMessage("Success delete user");
         exchange.getOut().setHeaders(headersMap);

@@ -20,7 +20,7 @@ public class GetProjectsFromDatabaseProcessor implements Processor {
         Gson gson = new Gson();
         List<ProjectPojo> projectPojos = ProjectDto.getProjects();
         Map<String, Object> headersMap = new HashMap<String, Object>();
-        headersMap.put("Accept", "application/json");
+        headersMap.put("Content-type", "application/json");
         headersMap.put("Status", "200");
         successResponseJsonMessage.setMessage("Success get projects");
         successResponseJsonMessage.setData(projectPojos);
