@@ -4,7 +4,6 @@ import com.camel.pojos.ProjectPojo;
 import com.camel.pojos.UserProjectsPojo;
 import com.camel.tables.tables.UserProject;
 import com.camel.tables.tables.records.UserProjectRecord;
-import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -13,7 +12,6 @@ import java.util.List;
  */
 public class UserProjectDto {
     public static UserProjectsPojo getUserProjects(String idUser) {
-        Gson gson = new Gson();
         UserProjectsPojo userProjectsPojo = new UserProjectsPojo();
         UserProject userProjectTable = UserProject.USER_PROJECT;
         List<UserProjectRecord> userProjectRecordList = UtilsDatabaseJooq.getDslContext().
