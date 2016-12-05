@@ -1,4 +1,4 @@
-package com.camel.pojos;
+package com.camel.dto;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
@@ -8,22 +8,19 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Mateusz Dobrowolski on 30.11.2016.
- */
 @Getter
 @Setter
-public class UserProjectsPojo {
+public class UserProjectsDto {
     @SerializedName("user")
-    private UserPojo userPojo;
+    private UserDto userDto;
     @SerializedName("list_projects")
-    private List<ProjectPojo> projectPojos = new ArrayList<ProjectPojo>();
+    private List<ProjectDto> projectDtos = new ArrayList<ProjectDto>();
     @SerializedName("data_from")
     private Date dateFrom;
     @SerializedName("data_to")
     private Date dateTo;
 
-    public void addProject(ProjectPojo projectPojo) {
-        projectPojos.add(projectPojo);
+    public void addProject(ProjectDto projectDto) {
+        projectDtos.add(projectDto);
     }
 }

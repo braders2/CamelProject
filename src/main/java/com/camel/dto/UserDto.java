@@ -1,4 +1,4 @@
-package com.camel.pojos;
+package com.camel.dto;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-public class UserPojo {
+public class UserDto {
     private int idUser;
     private String firstname;
     private String surname;
