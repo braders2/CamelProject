@@ -16,7 +16,6 @@ public class UserProjectDao {
                 .where(userProjectTable.USERS_ID_USER.equal(Integer.parseInt(idUser)))
                 .fetch();
 
-        userProjectsDto.setUserPojo(UserDao.getUser(idUser));
         for (UserProjectRecord userProjectRecord : userProjectRecordList) {
             ProjectDto projectDto = ProjectDao.getProject(userProjectRecord.getProjectsIdProject().toString());
             userProjectsDto.addProject(projectDto);
