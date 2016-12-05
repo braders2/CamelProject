@@ -8,9 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * Created by Mateusz Dobrowolski on 29.11.2016.
- */
 public class UtilsDatabaseJooq {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
