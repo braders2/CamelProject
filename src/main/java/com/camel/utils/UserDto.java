@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Mateusz Dobrowolski on 30.11.2016.
  */
 public class UserDto {
-    private final static Logger logger = LoggerFactory.getLogger(UserDto.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserDto.class);
 
     public static void insertUser(JsonObject jsonObject) {
         try {
@@ -31,6 +31,7 @@ public class UserDto {
             userRecord.setStatus(jsonObject.get("status").getAsByte());
             userRecord.store();
         } catch (NullPointerException exception) {
+            LOGGER.error("Incorrect Json Data Format", exception);
             throw new JsonParserException();
         }
     }
@@ -54,13 +55,13 @@ public class UserDto {
             userPojo.setStatus(userRecord.getStatus());
             return userPojo;
         } catch (NullPointerException exception) {
+            LOGGER.error("The user with that ID does not exist in database", exception);
             throw new DataAccessException("The user with that ID does not exist in database");
         }
     }
 
     public static List<UserPojo> getUsers() {
         try {
-            Gson gson = new Gson();
             User user = User.USER;
             List<UserPojo> userPojos = new ArrayList<UserPojo>();
             List<UserRecord> userRecords = UtilsDatabaseJooq.getDslContext().
@@ -79,6 +80,7 @@ public class UserDto {
             }
             return userPojos;
         } catch (NullPointerException exception) {
+            LOGGER.error("Database dont't have users", exception);
             throw new DataAccessException("Database dont't have users");
         }
     }
@@ -88,18 +90,17 @@ public class UserDto {
         UserRecord userRecord = UtilsDatabaseJooq.getDslContext().fetchOne(user, user.ID_USER.equal(Integer.valueOf(idUser)));
         int successDeleteRecord = userRecord.delete();
         if (successDeleteRecord == 0) {
-            logger.error("The user with that ID does not exist in database");
+            LOGGER.error("The user with that ID does not exist in database");
             throw new DataAccessException("The user with that ID does not exist in database");
         }
     }
 
     public static void updateUser(UserPojo userPojo) {
-        Gson gson = new Gson();
         User user = User.USER;
         UserRecord userRecord = UtilsDatabaseJooq.getDslContext().newRecord(user, userPojo);
         int successUpdateRecords = UtilsDatabaseJooq.getDslContext().executeUpdate(userRecord);
         if (successUpdateRecords == 0) {
-            logger.error("The user with that ID does not exist in database");
+            LOGGER.error("The user with that ID does not exist in database");
             throw new DataAccessException("The user with that ID does not exist in database");
         }
     }
