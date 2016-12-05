@@ -4,10 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.sql.Timestamp;
 
-/**
- * Created by Albert on 05.12.2016.
- */
-public class CustomerPojo {
+public class CustomerDTO {
     private int idCustomer;
     private String name;
     @SerializedName("date_created")
