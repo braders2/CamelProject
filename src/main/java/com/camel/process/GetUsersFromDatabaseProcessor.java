@@ -20,7 +20,7 @@ public class GetUsersFromDatabaseProcessor implements Processor {
         Gson gson = new Gson();
         List<UserPojo> userPojos = UserDto.getUsers();
         Map<String, Object> headersMap = new HashMap<String, Object>();
-        headersMap.put("Accept", "application/json");
+        headersMap.put("Content-type", "application/json");
         headersMap.put("Status", "200");
         exchange.getOut().setHeaders(headersMap);
         successResponseJsonMessage.setMessage("Success get users");

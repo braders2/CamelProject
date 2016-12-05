@@ -20,7 +20,7 @@ public class GetProjectFromDatabaseProcessor implements Processor {
         ProjectPojo projectPojo = ProjectDto.getProject(exchange.getIn()
                 .getHeader("id").toString());
         Map<String, Object> headersMap = new HashMap<String, Object>();
-        headersMap.put("Accept", "application/json");
+        headersMap.put("Content-type", "application/json");
         headersMap.put("Status", "200");
         successResponseJsonMessage.setMessage("Success get projects");
         successResponseJsonMessage.setData(projectPojo);
