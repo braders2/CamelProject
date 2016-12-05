@@ -1,12 +1,14 @@
 package com.camel.routes;
 
-import com.camel.process.*;
-import com.camel.utils.Const;
+import com.camel.processor.*;
+import com.camel.processor.user.*;
 import org.apache.camel.builder.RouteBuilder;
-import org.restlet.data.Method;
+
+import static com.camel.utils.Const.*;
 
 public class UserRouteBuilder extends RouteBuilder {
-    private final static String RESOURCE = "user";
+    private final static String RESOURCE = "/user";
+    private String URL_RESOURCE = URL + RESOURCE;
 
     public void configure() throws Exception {
 
@@ -16,29 +18,29 @@ public class UserRouteBuilder extends RouteBuilder {
                 .transform()
                 .body();
 
-        from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.GET))
-                .process(new GetUserFromDatabaseProcessor())
+        from(URL_RESOURCE + RESOURCE_ID + RESTLET_METHODS_GET)
+                .process(new GetUserProcessor())
                 .transform()
                 .body();
 
-        from(String.format("%s%s%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.GET))
-                .process(new GetUsersFromDatabaseProcessor())
+        from(URL_RESOURCE + RESTLET_METHODS_GET)
+                .process(new GetUsers())
                 .tracing()
                 .transform()
                 .body();
 
-        from(String.format("%s%s%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.POST))
-                .process(new InsertUserToDatabaseProcessor())
+        from(URL_RESOURCE + RESTLET_METHODS_POST)
+                .process(new InsertUser())
                 .transform()
                 .body();
 
-        from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.PUT))
-                .process(new UpdateUserDatabaseProcessor())
+        from(URL_RESOURCE + RESOURCE_ID + RESTLET_METHODS_PUT)
+                .process(new UpdateUser())
                 .transform()
                 .body();
 
-        from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.DELETE))
-                .process(new DeleteUserFromDatabaseProcessor())
+        from(URL_RESOURCE + RESOURCE_ID + RESTLET_METHODS_DELETE)
+                .process(new DeleteUser())
                 .transform()
                 .body();
     }

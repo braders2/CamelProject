@@ -1,6 +1,10 @@
 package com.camel.routes;
 
-import com.camel.process.*;
+import com.camel.processor.*;
+import com.camel.processor.project.DeleteProjectFromDatabaseProcessor;
+import com.camel.processor.project.GetProjectsFromDatabaseProcessor;
+import com.camel.processor.project.InsertProjectToDatabaseProcessor;
+import com.camel.processor.project.UpdateProjectDatabaseProcessor;
 import com.camel.utils.Const;
 import org.apache.camel.builder.RouteBuilder;
 import org.restlet.data.Method;

@@ -1,4 +1,4 @@
-package com.camel.process;
+package com.camel.processor;
 
 import com.camel.models.ErrorResponseJsonMessage;
 import com.google.gson.Gson;

@@ -7,9 +7,6 @@ import com.camel.tables.tables.records.UserProjectRecord;
 
 import java.util.List;
 
-/**
- * Created by Mateusz Dobrowolski on 02.12.2016.
- */
 public class UserProjectDto {
     public static UserProjectsPojo getUserProjects(String idUser) {
         UserProjectsPojo userProjectsPojo = new UserProjectsPojo();
@@ -19,10 +16,9 @@ public class UserProjectDto {
                 .where(userProjectTable.USERS_ID_USER.equal(Integer.parseInt(idUser)))
                 .fetch();
 
-        userProjectsPojo.setUserPojo(UserDto.getUser(idUser));
         for (UserProjectRecord userProjectRecord : userProjectRecordList) {
             ProjectPojo projectPojo = ProjectDto.getProject(userProjectRecord.getProjectsIdProject().toString());
-            userProjectsPojo.addProject(projectPojo);
+//            userProjectsPojo.addProject(projectPojo);
             userProjectsPojo.setDateFrom(userProjectRecord.getDateFrom());
             userProjectsPojo.setDateTo(userProjectRecord.getDateTo());
         }

@@ -1,4 +1,4 @@
-package com.camel.process;
+package com.camel.processor.project;
 
 import com.camel.models.SuccessResponseJsonMessage;
 import com.camel.utils.ProjectDto;

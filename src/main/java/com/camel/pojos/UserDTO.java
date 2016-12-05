@@ -1,15 +1,17 @@
 package com.camel.pojos;
 
 import com.google.gson.annotations.SerializedName;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 
 
 @Getter
 @Setter
-public class UserPojo {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserDTO {
     private int idUser;
     private String firstname;
     private String surname;

@@ -1,14 +1,11 @@
 package com.camel.routes;
 
-import com.camel.process.FailureResponseProcessor;
-import com.camel.process.GetUserProjectFromDatabaseProcessor;
+import com.camel.processor.FailureResponseProcessor;
+import com.camel.processor.GetUserProjectFromDatabaseProcessor;
 import com.camel.utils.Const;
 import org.apache.camel.builder.RouteBuilder;
 import org.restlet.data.Method;
 
-/**
- * Created by Mateusz Dobrowolski on 30.11.2016.
- */
 public class UserProjectRouteBuilder extends RouteBuilder {
     private final static String RESOURCE_USER = "user";
     private final static String RESOURCE_PROJECT = "project";
