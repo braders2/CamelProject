@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Mateusz Dobrowolski on 02.12.2016.
  */
 public class ProjectDto {
-    private final static Logger logger = LoggerFactory.getLogger(ProjectDto.class);
+    private static final  Logger LOGGER = LoggerFactory.getLogger(ProjectDto.class);
 
     public static void insertProject(JsonObject jsonObject) {
         try {
@@ -28,6 +28,7 @@ public class ProjectDto {
             projectRecord.setTimeTo(Date.valueOf(jsonObject.get("time_to").getAsString()));
             projectRecord.store();
         } catch (NullPointerException exception) {
+            LOGGER.error("Incorrect Json Data Format", exception);
             throw new JsonParserException();
         }
     }
@@ -47,6 +48,7 @@ public class ProjectDto {
             projectPojo.setTimeTo(projectRecord.getTimeTo());
             return projectPojo;
         } catch (NullPointerException exception) {
+            LOGGER.error("The project with that ID does not exist in database", exception);
             throw new DataAccessException("The project with that ID does not exist in database");
         }
     }
@@ -68,6 +70,7 @@ public class ProjectDto {
             }
             return projectPojos;
         } catch (NullPointerException exception) {
+            LOGGER.error("Database don't have projects", exception);
             throw new DataAccessException("Database don't have projects");
         }
     }
@@ -78,7 +81,7 @@ public class ProjectDto {
                 .fetchOne(project, project.ID_PROJECT.equal(Integer.valueOf(idProject)));
         int successDeleteRecord = projectRecord.delete();
         if (successDeleteRecord == 0) {
-            logger.error("The user with that ID does not exist in database");
+            LOGGER.error("The user with that ID does not exist in database");
             throw new DataAccessException("The user with that ID does not exist in database");
         }
     }
@@ -88,7 +91,7 @@ public class ProjectDto {
         ProjectRecord projectRecord = UtilsDatabaseJooq.getDslContext().newRecord(project, projectPojo);
         int successUpdateRecords = UtilsDatabaseJooq.getDslContext().executeUpdate(projectRecord);
         if (successUpdateRecords == 0) {
-            logger.error("The user with that ID does not exist in database");
+            LOGGER.error("The user with that ID does not exist in database");
             throw new DataAccessException("The user with that ID does not exist in database");
         }
     }
