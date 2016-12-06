@@ -1,7 +1,7 @@
 package com.camel.utils;
 
 import com.camel.exceptions.JsonParserException;
-import com.camel.dto.ProjectDto;
+import com.camel.dto.ProjectDTO;
 import com.camel.tables.tables.Project;
 import com.camel.tables.tables.records.ProjectRecord;
 import com.google.gson.JsonObject;
@@ -29,41 +29,41 @@ public class ProjectDao {
         }
     }
 
-    public static ProjectDto getProject(String idProject) {
+    public static ProjectDTO getProject(String idProject) {
         try {
-            ProjectDto projectDto = new ProjectDto();
+            ProjectDTO projectDTO = new ProjectDTO();
             Project project = Project.PROJECT;
             ProjectRecord projectRecord = UtilsDatabaseJooq.getDslContext().
                     selectFrom(project).
                     where(project.ID_PROJECT.equal(Integer.parseInt(idProject)))
                     .fetchOne();
 
-            projectDto.setIdProject(projectRecord.getIdProject());
-            projectDto.setName(projectRecord.getName());
-            projectDto.setTimeFrom(projectRecord.getTimeFrom());
-            projectDto.setTimeTo(projectRecord.getTimeTo());
-            return projectDto;
+            projectDTO.setIdProject(projectRecord.getIdProject());
+            projectDTO.setName(projectRecord.getName());
+            projectDTO.setTimeFrom(projectRecord.getTimeFrom());
+            projectDTO.setTimeTo(projectRecord.getTimeTo());
+            return projectDTO;
         } catch (NullPointerException exception) {
             throw new DataAccessException("The project with that ID does not exist in database");
         }
     }
 
-    public static List<ProjectDto> getProjects() {
+    public static List<ProjectDTO> getProjects() {
         try {
             Project project = Project.PROJECT;
-            List<ProjectDto> projectDtos = new ArrayList<ProjectDto>();
+            List<ProjectDTO> projectDTOS = new ArrayList<ProjectDTO>();
             List<ProjectRecord> projectRecords = UtilsDatabaseJooq.getDslContext().
                     selectFrom(project)
                     .fetch();
             for (ProjectRecord projectRecord : projectRecords) {
-                ProjectDto projectDto = new ProjectDto();
-                projectDto.setIdProject(projectRecord.getIdProject());
-                projectDto.setName(projectRecord.getName());
-                projectDto.setTimeFrom(projectRecord.getTimeFrom());
-                projectDto.setTimeTo(projectRecord.getTimeTo());
-                projectDtos.add(projectDto);
+                ProjectDTO projectDTO = new ProjectDTO();
+                projectDTO.setIdProject(projectRecord.getIdProject());
+                projectDTO.setName(projectRecord.getName());
+                projectDTO.setTimeFrom(projectRecord.getTimeFrom());
+                projectDTO.setTimeTo(projectRecord.getTimeTo());
+                projectDTOS.add(projectDTO);
             }
-            return projectDtos;
+            return projectDTOS;
         } catch (NullPointerException exception) {
             throw new DataAccessException("Database don't have projects");
         }
@@ -80,9 +80,9 @@ public class ProjectDao {
         }
     }
 
-    public static void updateProject(ProjectDto projectDto) {
+    public static void updateProject(ProjectDTO projectDTO) {
         Project project = Project.PROJECT;
-        ProjectRecord projectRecord = UtilsDatabaseJooq.getDslContext().newRecord(project, projectDto);
+        ProjectRecord projectRecord = UtilsDatabaseJooq.getDslContext().newRecord(project, projectDTO);
         int successUpdateRecords = UtilsDatabaseJooq.getDslContext().executeUpdate(projectRecord);
         if (successUpdateRecords == 0) {
             logger.error("The user with that ID does not exist in database");

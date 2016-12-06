@@ -14,13 +14,13 @@ public class UserProjectsDto {
     @SerializedName("user")
     private UserDTO userDTO;
     @SerializedName("list_projects")
-    private List<ProjectDto> projectDtos = new ArrayList<ProjectDto>();
+    private List<ProjectDTO> projectDTOS = new ArrayList<ProjectDTO>();
     @SerializedName("data_from")
     private Date dateFrom;
     @SerializedName("data_to")
     private Date dateTo;
 
-    public void addProject(ProjectDto projectDto) {
-        projectDtos.add(projectDto);
+    public void addProject(ProjectDTO projectDTO) {
+        projectDTOS.add(projectDTO);
     }
 }

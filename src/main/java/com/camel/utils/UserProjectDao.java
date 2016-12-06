@@ -1,6 +1,6 @@
 package com.camel.utils;
 
-import com.camel.dto.ProjectDto;
+import com.camel.dto.ProjectDTO;
 import com.camel.dto.UserProjectsDto;
 import com.camel.tables.tables.UserProject;
 import com.camel.tables.tables.records.UserProjectRecord;
@@ -17,8 +17,8 @@ public class UserProjectDao {
                 .fetch();
 
         for (UserProjectRecord userProjectRecord : userProjectRecordList) {
-            ProjectDto projectDto = ProjectDao.getProject(userProjectRecord.getProjectsIdProject().toString());
-            userProjectsDto.addProject(projectDto);
+            ProjectDTO projectDTO = ProjectDao.getProject(userProjectRecord.getProjectsIdProject().toString());
+            userProjectsDto.addProject(projectDTO);
             userProjectsDto.setDateFrom(userProjectRecord.getDateFrom());
             userProjectsDto.setDateTo(userProjectRecord.getDateTo());
         }
