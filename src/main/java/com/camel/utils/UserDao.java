@@ -1,7 +1,7 @@
 package com.camel.utils;
 
 import com.camel.exceptions.JsonParserException;
-import com.camel.dto.UserDto;
+import com.camel.dto.UserDTO;
 import com.camel.tables.tables.User;
 import com.camel.tables.tables.records.UserRecord;
 import com.google.gson.JsonObject;
@@ -32,9 +32,9 @@ public class UserDao {
         }
     }
 
-    public static UserDto getUser(String idUser) {
+/*    public static UserDTO getUser(String idUser) {
         try {
-            UserDto userDto = new UserDto();
+            UserDTO userDTO = new UserDTO();
             User user = User.USER;
 
             UserRecord userRecord = UtilsDatabaseJooq.getDslContext().
@@ -42,44 +42,44 @@ public class UserDao {
                     where(user.ID_USER.equal(Integer.parseInt(idUser)))
                     .fetchOne();
 
-            userDto.setIdUser(userRecord.getIdUser());
-            userDto.setFirstname(userRecord.getFirstname());
-            userDto.setSurname(userRecord.getSurname());
-            userDto.setEmail(userRecord.getEmail());
-            userDto.setDataCreateAccount(userRecord.getDataCreateAccount());
-            userDto.setDataModificationAccount(userRecord.getDataModificationAccount());
-            userDto.setStatus(userRecord.getStatus());
-            return userDto;
+            userDTO.setIdUser(userRecord.getIdUser());
+            userDTO.setFirstname(userRecord.getFirstname());
+            userDTO.setSurname(userRecord.getSurname());
+            userDTO.setEmail(userRecord.getEmail());
+            userDTO.setDataCreateAccount(userRecord.getDataCreateAccount());
+            userDTO.setDataModificationAccount(userRecord.getDataModificationAccount());
+            userDTO.setStatus(userRecord.getStatus());
+            return userDTO;
         } catch (NullPointerException exception) {
             LOGGER.error("The user with that ID does not exist in database", exception);
             throw new DataAccessException("The user with that ID does not exist in database");
         }
     }
 
-    public static List<UserDto> getUsers() {
+    public static List<UserDTO> getUsers() {
         try {
             User user = User.USER;
-            List<UserDto> userDtos = new ArrayList<UserDto>();
+            List<UserDTO> userDTOS = new ArrayList<UserDTO>();
             List<UserRecord> userRecords = UtilsDatabaseJooq.getDslContext().
                     selectFrom(user)
                     .fetch();
             for (UserRecord userRecord : userRecords) {
-                UserDto userDto = new UserDto();
-                userDto.setIdUser(userRecord.getIdUser());
-                userDto.setFirstname(userRecord.getFirstname());
-                userDto.setSurname(userRecord.getSurname());
-                userDto.setEmail(userRecord.getEmail());
-                userDto.setDataCreateAccount(userRecord.getDataCreateAccount());
-                userDto.setDataModificationAccount(userRecord.getDataModificationAccount());
-                userDto.setStatus(userRecord.getStatus());
-                userDtos.add(userDto);
+                UserDTO userDTO = new UserDTO();
+                userDTO.setIdUser(userRecord.getIdUser());
+                userDTO.setFirstname(userRecord.getFirstname());
+                userDTO.setSurname(userRecord.getSurname());
+                userDTO.setEmail(userRecord.getEmail());
+                userDTO.setDataCreateAccount(userRecord.getDataCreateAccount());
+                userDTO.setDataModificationAccount(userRecord.getDataModificationAccount());
+                userDTO.setStatus(userRecord.getStatus());
+                userDTOS.add(userDTO);
             }
-            return userDtos;
+            return userDTOS;
         } catch (NullPointerException exception) {
             LOGGER.error("Database dont't have users", exception);
             throw new DataAccessException("Database dont't have users");
         }
-    }
+    }*/
 
     public static void deleteUser(String idUser) {
         User user = User.USER;
@@ -91,9 +91,9 @@ public class UserDao {
         }
     }
 
-    public static void updateUser(UserDto userDto) {
+    public static void updateUser(UserDTO userDTO) {
         User user = User.USER;
-        UserRecord userRecord = UtilsDatabaseJooq.getDslContext().newRecord(user, userDto);
+        UserRecord userRecord = UtilsDatabaseJooq.getDslContext().newRecord(user, userDTO);
         int successUpdateRecords = UtilsDatabaseJooq.getDslContext().executeUpdate(userRecord);
         if (successUpdateRecords == 0) {
             LOGGER.error("The user with that ID does not exist in database");

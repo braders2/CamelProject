@@ -1,6 +1,6 @@
 package com.camel.procesor.user;
 
-import com.camel.dto.UserDto;
+import com.camel.dto.UserDTO;
 import com.camel.utils.UserDao;
 import com.google.gson.Gson;
 import org.apache.camel.Exchange;
@@ -13,8 +13,8 @@ public class UpdateUserProcesor implements Processor {
     public void process(Exchange exchange) throws Exception {
         Gson gson = new Gson();
         String userJsonString = exchange.getIn().getBody(String.class);
-        UserDto userDto = gson.fromJson(userJsonString, UserDto.class);
-        userDto.setIdUser(exchange.getIn().getHeader("id", Integer.class));
-        UserDao.updateUser(userDto);
+        UserDTO userDTO = gson.fromJson(userJsonString, UserDTO.class);
+        userDTO.setIdUser(exchange.getIn().getHeader("id", Integer.class));
+        UserDao.updateUser(userDTO);
     }
 }

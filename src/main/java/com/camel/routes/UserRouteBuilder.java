@@ -1,13 +1,13 @@
 package com.camel.routes;
 
-import com.camel.procesor.*;
+import com.camel.procesor.FailureResponseProcessor;
 import com.camel.procesor.user.*;
-import com.camel.utils.Const;
 import org.apache.camel.builder.RouteBuilder;
-import org.restlet.data.Method;
+
+import static com.camel.utils.Const.*;
 
 public class UserRouteBuilder extends RouteBuilder {
-    private final static String RESOURCE = "user";
+    private final static String RESOURCE = "/user";
 
     public void configure() throws Exception {
 
@@ -17,28 +17,28 @@ public class UserRouteBuilder extends RouteBuilder {
                 .transform()
                 .body();
 
-        from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.GET))
+        from(URL + RESOURCE + RESOURCE_ID + RESTLET_METHODS_GET)
                 .process(new GetUserProcesor())
                 .transform()
                 .body();
 
-        from(String.format("%s%s%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.GET))
+        from(URL + RESOURCE + RESTLET_METHODS_GET)
                 .process(new GetUsersProcesor())
                 .tracing()
                 .transform()
                 .body();
 
-        from(String.format("%s%s%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.POST))
+        from(URL + RESOURCE + RESTLET_METHODS_POST)
                 .process(new InsertUserProcesor())
                 .transform()
                 .body();
 
-        from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.PUT))
+        from(URL + RESOURCE + RESOURCE_ID + RESTLET_METHODS_PUT)
                 .process(new UpdateUserProcesor())
                 .transform()
                 .body();
 
-        from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.DELETE))
+        from(URL + RESOURCE + RESOURCE_ID + RESTLET_METHODS_DELETE)
                 .process(new DeleteUserProcesor())
                 .transform()
                 .body();

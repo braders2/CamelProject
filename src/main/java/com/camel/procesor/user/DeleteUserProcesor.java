@@ -8,9 +8,6 @@ import org.apache.camel.Processor;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Mateusz Dobrowolski on 29.11.2016.
- */
 public class DeleteUserProcesor implements Processor {
     public void process(Exchange exchange) throws Exception {
         Gson gson = new Gson();

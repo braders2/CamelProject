@@ -1,19 +1,42 @@
 package com.camel.procesor.user;
 
-import com.camel.dto.UserDto;
-import com.camel.utils.UserDao;
+import com.camel.dao.UserRepository;
+import com.camel.dao.impl.UserRepositoryImpl;
+import com.camel.dto.UserDTO;
+import com.camel.tables.tables.records.UserRecord;
+import com.camel.transform.impl.UserTransformerImpl;
 import com.google.gson.Gson;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.apache.camel.component.restlet.RestletConstants;
+import org.restlet.Response;
+import org.restlet.data.Status;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
 
-/**
- * Created by Mateusz Dobrowolski on 29.11.2016.
- */
 public class GetUsersProcesor implements Processor {
+
+    @Override
     public void process(Exchange exchange) throws Exception {
         Gson gson = new Gson();
-        List<UserDto> userDtos = UserDao.getUsers();
+        UserRepository userRepository = new UserRepositoryImpl();
+
+        Collection<UserRecord> userRecords = userRepository.getAll();
+        if (!userRecords.isEmpty()) {
+            UserTransformerImpl userTransformer = new UserTransformerImpl();
+            Collection<UserDTO> usersData = new ArrayList<>();
+
+            for(UserRecord userRecord : userRecords) {
+                UserDTO userDTO = userTransformer.convertToDto(userRecord);
+                usersData.add(userDTO);
+            }
+
+            exchange.getIn().setBody(gson.toJson(usersData));
+        } else {
+            Response response = exchange.getIn().getHeader(RestletConstants.RESTLET_RESPONSE, Response.class);
+            response.setStatus(Status.SUCCESS_NO_CONTENT);
+            exchange.getOut().setBody(response);
+        }
     }
 }
