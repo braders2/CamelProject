@@ -4,6 +4,7 @@ import com.camel.dao.CustomerRepository;
 import com.camel.dao.impl.CustomerRepositoryImpl;
 import com.camel.dto.CustomerDTO;
 import com.camel.tables.tables.records.CustomerRecord;
+import com.camel.transform.impl.CustomerTransformerImpl;
 import com.camel.utils.Precondition;
 import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
@@ -14,29 +15,24 @@ import org.restlet.data.Status;
 
 import java.util.Optional;
 
+import static com.camel.utils.Const.HEADER_ELEMENT_ID;
+
 public class GetCustomerProcessor implements org.apache.camel.Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
-        String customerId = exchange.getIn().getHeader("id").toString();
+        String customerId = exchange.getIn().getHeader(HEADER_ELEMENT_ID, String.class);
+        Gson gson = new Gson();
+        CustomerRepository customerRepository = new CustomerRepositoryImpl();
 
         Preconditions.checkArgument(Precondition.isInteger(customerId),
-                "Invalid customerID passed to processor (CustomerID = " + customerId + "\"");
+                "Invalid user ID passed to argument: " + customerId);
 
-        Gson gson = new Gson();
-
-        CustomerRepository customerRepository = new CustomerRepositoryImpl();
         Optional<CustomerRecord> customerRecord = customerRepository.get(Long.parseLong(customerId));
 
         if (customerRecord.isPresent()) {
             CustomerRecord customerData = customerRecord.get();
-
-            CustomerDTO customerDTO = CustomerDTO.builder()
-                    .name(customerData.getName())
-                    .dateCreated(customerData.getDateCreated())
-                    .contactPerson(customerData.getContactPerson())
-                    .contactEmail(customerData.getContactEmail())
-                    .idCustomerStatus(customerData.getIdStatus())
-                    .build();
+            CustomerTransformerImpl customerTransformer = new CustomerTransformerImpl();
+            CustomerDTO customerDTO = customerTransformer.convertToDto(customerData);
 
             exchange.getIn().setBody(gson.toJson(customerDTO));
 
