@@ -36,7 +36,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Project extends TableImpl<ProjectRecord> {
 
-    private static final long serialVersionUID = -1837997841;
+    private static final long serialVersionUID = -1943835089;
 
     /**
      * The reference instance of <code>database.project</code>
@@ -70,6 +70,11 @@ public class Project extends TableImpl<ProjectRecord> {
      * The column <code>database.project.time_to</code>.
      */
     public final TableField<ProjectRecord, Date> TIME_TO = createField("time_to", org.jooq.impl.SQLDataType.DATE, this, "");
+
+    /**
+     * The column <code>database.project.id_customer</code>.
+     */
+    public final TableField<ProjectRecord, Integer> ID_CUSTOMER = createField("id_customer", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * Create a <code>database.project</code> table reference

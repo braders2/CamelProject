@@ -15,4 +15,5 @@ public class ProjectDto {
     private Date timeFrom;
     @SerializedName("time_to")
     private Date timeTo;
+    private CustomerDTO customerDTO;
 }

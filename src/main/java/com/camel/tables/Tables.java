@@ -4,6 +4,8 @@
 package com.camel.tables;
 
 
+import com.camel.tables.tables.Customer;
+import com.camel.tables.tables.CustomerStatus;
 import com.camel.tables.tables.Project;
 import com.camel.tables.tables.User;
 import com.camel.tables.tables.UserProject;
@@ -23,6 +25,16 @@ import javax.annotation.Generated;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>database.customer</code>.
+     */
+    public static final Customer CUSTOMER = com.camel.tables.tables.Customer.CUSTOMER;
+
+    /**
+     * The table <code>database.customer_status</code>.
+     */
+    public static final CustomerStatus CUSTOMER_STATUS = com.camel.tables.tables.CustomerStatus.CUSTOMER_STATUS;
 
     /**
      * The table <code>database.project</code>.
