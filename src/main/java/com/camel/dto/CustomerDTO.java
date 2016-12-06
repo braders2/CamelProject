@@ -1,9 +1,15 @@
-package com.camel.pojos;
+package com.camel.dto;
 
 import com.google.gson.annotations.SerializedName;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
+@Getter
+@Setter
+@Builder
 public class CustomerDTO {
     private int idCustomer;
     private String name;
@@ -12,5 +18,5 @@ public class CustomerDTO {
     private String contactPerson;
     private String contactEmail;
     @SerializedName("customer_status")
-    private CustomerStatusPojo customerStatusPojo;
+    private int idCustomerStatus;
 }
