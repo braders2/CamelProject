@@ -15,6 +15,7 @@ public class CustomerTransformerImpl implements GenericTransformer<CustomerDTO, 
                 .contactEmail(customerRecord.getContactEmail())
                 .idCustomerStatus(customerRecord.getIdStatus())
                 .build();
+
     }
 
     @Override
