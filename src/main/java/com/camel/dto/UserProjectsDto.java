@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 public class UserProjectsDto {
     @SerializedName("user")
-    private UserDto userDto;
+    private UserDTO userDTO;
     @SerializedName("list_projects")
     private List<ProjectDto> projectDtos = new ArrayList<ProjectDto>();
     @SerializedName("data_from")
