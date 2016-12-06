@@ -4,6 +4,8 @@
 package com.camel.tables;
 
 
+import com.camel.tables.tables.Customer;
+import com.camel.tables.tables.CustomerStatus;
 import com.camel.tables.tables.Project;
 import com.camel.tables.tables.User;
 import com.camel.tables.tables.UserProject;
@@ -32,12 +34,22 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Database extends SchemaImpl {
 
-    private static final long serialVersionUID = 775815453;
+    private static final long serialVersionUID = 1404107249;
 
     /**
      * The reference instance of <code>database</code>
      */
     public static final Database DATABASE = new Database();
+
+    /**
+     * The table <code>database.customer</code>.
+     */
+    public final Customer CUSTOMER = com.camel.tables.tables.Customer.CUSTOMER;
+
+    /**
+     * The table <code>database.customer_status</code>.
+     */
+    public final CustomerStatus CUSTOMER_STATUS = com.camel.tables.tables.CustomerStatus.CUSTOMER_STATUS;
 
     /**
      * The table <code>database.project</code>.
@@ -79,6 +91,8 @@ public class Database extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
+            Customer.CUSTOMER,
+            CustomerStatus.CUSTOMER_STATUS,
             Project.PROJECT,
             User.USER,
             UserProject.USER_PROJECT);

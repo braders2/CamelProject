@@ -4,9 +4,13 @@
 package com.camel.tables;
 
 
+import com.camel.tables.tables.Customer;
+import com.camel.tables.tables.CustomerStatus;
 import com.camel.tables.tables.Project;
 import com.camel.tables.tables.User;
 import com.camel.tables.tables.UserProject;
+import com.camel.tables.tables.records.CustomerRecord;
+import com.camel.tables.tables.records.CustomerStatusRecord;
 import com.camel.tables.tables.records.ProjectRecord;
 import com.camel.tables.tables.records.UserProjectRecord;
 import com.camel.tables.tables.records.UserRecord;
@@ -37,6 +41,8 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<CustomerRecord, Integer> IDENTITY_CUSTOMER = Identities0.IDENTITY_CUSTOMER;
+    public static final Identity<CustomerStatusRecord, Integer> IDENTITY_CUSTOMER_STATUS = Identities0.IDENTITY_CUSTOMER_STATUS;
     public static final Identity<ProjectRecord, Integer> IDENTITY_PROJECT = Identities0.IDENTITY_PROJECT;
     public static final Identity<UserRecord, Integer> IDENTITY_USER = Identities0.IDENTITY_USER;
 
@@ -44,6 +50,8 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<CustomerRecord> KEY_CUSTOMER_PRIMARY = UniqueKeys0.KEY_CUSTOMER_PRIMARY;
+    public static final UniqueKey<CustomerStatusRecord> KEY_CUSTOMER_STATUS_PRIMARY = UniqueKeys0.KEY_CUSTOMER_STATUS_PRIMARY;
     public static final UniqueKey<ProjectRecord> KEY_PROJECT_PRIMARY = UniqueKeys0.KEY_PROJECT_PRIMARY;
     public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = UniqueKeys0.KEY_USER_PRIMARY;
     public static final UniqueKey<UserProjectRecord> KEY_USER_PROJECT_PRIMARY = UniqueKeys0.KEY_USER_PROJECT_PRIMARY;
@@ -60,11 +68,15 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     private static class Identities0 extends AbstractKeys {
+        public static Identity<CustomerRecord, Integer> IDENTITY_CUSTOMER = createIdentity(Customer.CUSTOMER, Customer.CUSTOMER.ID);
+        public static Identity<CustomerStatusRecord, Integer> IDENTITY_CUSTOMER_STATUS = createIdentity(CustomerStatus.CUSTOMER_STATUS, CustomerStatus.CUSTOMER_STATUS.ID);
         public static Identity<ProjectRecord, Integer> IDENTITY_PROJECT = createIdentity(Project.PROJECT, Project.PROJECT.ID_PROJECT);
         public static Identity<UserRecord, Integer> IDENTITY_USER = createIdentity(User.USER, User.USER.ID_USER);
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
+        public static final UniqueKey<CustomerRecord> KEY_CUSTOMER_PRIMARY = createUniqueKey(Customer.CUSTOMER, "KEY_customer_PRIMARY", Customer.CUSTOMER.ID);
+        public static final UniqueKey<CustomerStatusRecord> KEY_CUSTOMER_STATUS_PRIMARY = createUniqueKey(CustomerStatus.CUSTOMER_STATUS, "KEY_customer_status_PRIMARY", CustomerStatus.CUSTOMER_STATUS.ID);
         public static final UniqueKey<ProjectRecord> KEY_PROJECT_PRIMARY = createUniqueKey(Project.PROJECT, "KEY_project_PRIMARY", Project.PROJECT.ID_PROJECT);
         public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = createUniqueKey(User.USER, "KEY_user_PRIMARY", User.USER.ID_USER);
         public static final UniqueKey<UserProjectRecord> KEY_USER_PROJECT_PRIMARY = createUniqueKey(UserProject.USER_PROJECT, "KEY_user_project_PRIMARY", UserProject.USER_PROJECT.PROJECTS_ID_PROJECT, UserProject.USER_PROJECT.USERS_ID_USER);

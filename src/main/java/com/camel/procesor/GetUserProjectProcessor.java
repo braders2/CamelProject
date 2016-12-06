@@ -1,7 +1,6 @@
 package com.camel.procesor;
 
 import com.camel.dto.UserProjectsDto;
-import com.camel.utils.UserProjectDao;
 import com.google.gson.Gson;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
