@@ -6,9 +6,12 @@ import com.camel.utils.Const;
 import org.apache.camel.builder.RouteBuilder;
 import org.restlet.data.Method;
 
-public class ProjectRouteBuilder extends RouteBuilder {
-    private final static String RESOURCE = "project";
+import static com.camel.utils.Const.*;
 
+public class ProjectRouteBuilder extends RouteBuilder {
+    private static final String RESOURCE = "/project";
+
+    @Override
     public void configure() throws Exception {
 
         onException(Exception.class)
@@ -17,27 +20,27 @@ public class ProjectRouteBuilder extends RouteBuilder {
                 .transform()
                 .body();
 
-        from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.GET))
+        from(URL + RESOURCE + RESOURCE_ID + RESTLET_METHODS_GET)
                 .process(new GetProjectProcessor())
                 .transform()
                 .body();
 
-        from(String.format("%s%s%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.GET))
+        from(URL + RESOURCE + RESTLET_METHODS_GET)
                 .process(new GetProjectsProcessor())
                 .transform()
                 .body();
 
-        from(String.format("%s%s%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.POST))
+        from(URL + RESOURCE + RESTLET_METHODS_POST)
                 .process(new InsertProjectProcessor())
                 .transform()
                 .body();
 
-        from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.PUT))
+        from(URL + RESOURCE + RESOURCE_ID + RESTLET_METHODS_PUT)
                 .process(new UpdateProjectProcessor())
                 .transform()
                 .body();
 
-        from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.DELETE))
+        from(URL + RESOURCE + RESOURCE_ID + RESTLET_METHODS_DELETE)
                 .process(new DeleteProjectProcessor())
                 .transform()
                 .body();
