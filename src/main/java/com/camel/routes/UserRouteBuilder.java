@@ -18,28 +18,28 @@ public class UserRouteBuilder extends RouteBuilder {
                 .body();
 
         from(URL + RESOURCE + RESOURCE_ID + RESTLET_METHODS_GET)
-                .process(new GetUserProcesor())
+                .process(new GetUserProcessor())
                 .transform()
                 .body();
 
         from(URL + RESOURCE + RESTLET_METHODS_GET)
-                .process(new GetUsersProcesor())
+                .process(new GetUsersProcessor())
                 .tracing()
                 .transform()
                 .body();
 
         from(URL + RESOURCE + RESTLET_METHODS_POST)
-                .process(new InsertUserProcesor())
+                .process(new InsertUserProcessor())
                 .transform()
                 .body();
 
         from(URL + RESOURCE + RESOURCE_ID + RESTLET_METHODS_PUT)
-                .process(new UpdateUserProcesor())
+                .process(new UpdateUserProcessor())
                 .transform()
                 .body();
 
         from(URL + RESOURCE + RESOURCE_ID + RESTLET_METHODS_DELETE)
-                .process(new DeleteUserProcesor())
+                .process(new DeleteUserProcessor())
                 .transform()
                 .body();
     }

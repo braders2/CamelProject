@@ -16,10 +16,13 @@ import org.restlet.data.Status;
 
 import java.util.Optional;
 
-public class GetUserProcesor implements Processor {
+import static com.camel.utils.Const.HEADER_ELEMENT_ID;
 
+public class GetUserProcessor implements Processor {
+
+    @Override
     public void process(Exchange exchange) throws Exception {
-        String userId = exchange.getIn().getHeader("id", String.class);
+        String userId = exchange.getIn().getHeader(HEADER_ELEMENT_ID, String.class);
         Gson gson = new Gson();
         UserRepository userRepository = new UserRepositoryImpl();
 

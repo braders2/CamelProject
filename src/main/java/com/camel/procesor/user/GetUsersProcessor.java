@@ -15,7 +15,7 @@ import org.restlet.data.Status;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class GetUsersProcesor implements Processor {
+public class GetUsersProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
@@ -27,7 +27,7 @@ public class GetUsersProcesor implements Processor {
             UserTransformerImpl userTransformer = new UserTransformerImpl();
             Collection<UserDTO> usersData = new ArrayList<>();
 
-            for(UserRecord userRecord : userRecords) {
+            for (UserRecord userRecord : userRecords) {
                 UserDTO userDTO = userTransformer.convertToDto(userRecord);
                 usersData.add(userDTO);
             }
