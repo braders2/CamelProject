@@ -25,14 +25,14 @@ public class GetUsersProcessor implements Processor {
         Collection<UserRecord> userRecords = userRepository.getAll();
         if (!userRecords.isEmpty()) {
             UserTransformerImpl userTransformer = new UserTransformerImpl();
-            Collection<UserDTO> usersData = new ArrayList<>();
+            Collection<UserDTO> usersDTO = new ArrayList<>();
 
             for (UserRecord userRecord : userRecords) {
                 UserDTO userDTO = userTransformer.convertToDto(userRecord);
-                usersData.add(userDTO);
+                usersDTO.add(userDTO);
             }
 
-            exchange.getIn().setBody(gson.toJson(usersData));
+            exchange.getIn().setBody(gson.toJson(usersDTO));
         } else {
             Response response = exchange.getIn().getHeader(RestletConstants.RESTLET_RESPONSE, Response.class);
             response.setStatus(Status.SUCCESS_NO_CONTENT);
