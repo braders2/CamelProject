@@ -1,5 +1,6 @@
 package com.camel;
 
+import com.camel.routes.CustomerRouteBuilder;
 import com.camel.routes.ProjectRouteBuilder;
 import com.camel.routes.UserProjectRouteBuilder;
 import com.camel.routes.UserRouteBuilder;
@@ -27,12 +28,13 @@ public class Main {
         UserRouteBuilder userRouteBuilder = new UserRouteBuilder();
         ProjectRouteBuilder projectRouteBuilder = new ProjectRouteBuilder();
         UserProjectRouteBuilder userProjectRouteBuilder = new UserProjectRouteBuilder();
+        CustomerRouteBuilder customerRouteBuilder = new CustomerRouteBuilder();
 
         camelContext.addRoutes(userRouteBuilder);
         camelContext.addRoutes(projectRouteBuilder);
         camelContext.addRoutes(userProjectRouteBuilder);
 
-//        camelContext.addRoutes(customerRouteBuilder);
+        camelContext.addRoutes(customerRouteBuilder);
 
         return camelContext;
     }

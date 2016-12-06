@@ -38,10 +38,10 @@ public class ProjectDao {
                     where(project.ID_PROJECT.equal(Integer.parseInt(idProject)))
                     .fetchOne();
 
-            projectDto.setIdProject(projectRecord.getIdProject());
-            projectDto.setName(projectRecord.getName());
-            projectDto.setTimeFrom(projectRecord.getTimeFrom());
-            projectDto.setTimeTo(projectRecord.getTimeTo());
+//            projectDto.setIdProject(projectRecord.getIdProject());
+//            projectDto.setName(projectRecord.getName());
+//            projectDto.setTimeFrom(projectRecord.getTimeFrom());
+//            projectDto.setTimeTo(projectRecord.getTimeTo());
             return projectDto;
         } catch (NullPointerException exception) {
             throw new DataAccessException("The project with that ID does not exist in database");
@@ -57,10 +57,10 @@ public class ProjectDao {
                     .fetch();
             for (ProjectRecord projectRecord : projectRecords) {
                 ProjectDto projectDto = new ProjectDto();
-                projectDto.setIdProject(projectRecord.getIdProject());
-                projectDto.setName(projectRecord.getName());
-                projectDto.setTimeFrom(projectRecord.getTimeFrom());
-                projectDto.setTimeTo(projectRecord.getTimeTo());
+//                projectDto.setIdProject(projectRecord.getIdProject());
+//                projectDto.setName(projectRecord.getName());
+//                projectDto.setTimeFrom(projectRecord.getTimeFrom());
+//                projectDto.setTimeTo(projectRecord.getTimeTo());
                 projectDtos.add(projectDto);
             }
             return projectDtos;

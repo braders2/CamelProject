@@ -19,8 +19,8 @@ public class UserProjectDao {
         for (UserProjectRecord userProjectRecord : userProjectRecordList) {
             ProjectDto projectDto = ProjectDao.getProject(userProjectRecord.getProjectsIdProject().toString());
             userProjectsDto.addProject(projectDto);
-            userProjectsDto.setDateFrom(userProjectRecord.getDateFrom());
-            userProjectsDto.setDateTo(userProjectRecord.getDateTo());
+//            userProjectsDto.setDateFrom(userProjectRecord.getDateFrom());
+//            userProjectsDto.setDateTo(userProjectRecord.getDateTo());
         }
         return userProjectsDto;
     }
