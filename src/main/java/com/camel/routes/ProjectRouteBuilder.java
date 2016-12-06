@@ -18,27 +18,27 @@ public class ProjectRouteBuilder extends RouteBuilder {
                 .body();
 
         from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.GET))
-                .process(new GetProjectProcesor())
+                .process(new GetProjectProcessor())
                 .transform()
                 .body();
 
         from(String.format("%s%s%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.GET))
-                .process(new GetProjectsProcesor())
+                .process(new GetProjectsProcessor())
                 .transform()
                 .body();
 
         from(String.format("%s%s%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.POST))
-                .process(new InsertProjectProcesor())
+                .process(new InsertProjectProcessor())
                 .transform()
                 .body();
 
         from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.PUT))
-                .process(new UpdateProjectProcesor())
+                .process(new UpdateProjectProcessor())
                 .transform()
                 .body();
 
         from(String.format("%s%s/{id}%s%s", Const.URL, RESOURCE, Const.RESTLET_METHODS, Method.DELETE))
-                .process(new DeleteProjectProcesor())
+                .process(new DeleteProjectProcessor())
                 .transform()
                 .body();
     }
