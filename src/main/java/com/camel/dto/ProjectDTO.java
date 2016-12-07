@@ -14,5 +14,5 @@ public class ProjectDTO {
     private String name;
     private Date timeFrom;
     private Date timeTo;
-    private CustomerDTO customerDTO;
+    private int idCustomer;
 }
