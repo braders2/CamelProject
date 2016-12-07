@@ -4,11 +4,7 @@
 package com.camel.tables;
 
 
-import com.camel.tables.tables.Customer;
-import com.camel.tables.tables.CustomerStatus;
-import com.camel.tables.tables.Project;
-import com.camel.tables.tables.User;
-import com.camel.tables.tables.UserProject;
+import com.camel.tables.tables.*;
 
 import javax.annotation.Generated;
 

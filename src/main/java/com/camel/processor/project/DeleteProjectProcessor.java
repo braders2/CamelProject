@@ -1,4 +1,4 @@
-package com.camel.procesor.project;
+package com.camel.processor.project;
 
 import com.camel.dao.ProjectRepository;
 import com.camel.dao.impl.ProjectRepositoryImpl;

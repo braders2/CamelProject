@@ -1,14 +1,15 @@
 package com.camel.routes;
 
-import com.camel.procesor.FailureResponseProcessor;
-import com.camel.procesor.user.*;
+import com.camel.processor.FailureResponseProcessor;
+import com.camel.processor.user.*;
 import org.apache.camel.builder.RouteBuilder;
 
 import static com.camel.utils.Const.*;
 
 public class UserRouteBuilder extends RouteBuilder {
-    private final static String RESOURCE = "/user";
+    private static final String RESOURCE = "/user";
 
+    @Override
     public void configure() throws Exception {
 
         onException(Exception.class)

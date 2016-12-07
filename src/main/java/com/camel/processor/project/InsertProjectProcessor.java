@@ -1,4 +1,4 @@
-package com.camel.procesor.project;
+package com.camel.processor.project;
 
 import com.camel.dao.ProjectRepository;
 import com.camel.dao.impl.ProjectRepositoryImpl;
@@ -6,8 +6,6 @@ import com.camel.dto.ProjectDTO;
 import com.camel.tables.tables.records.ProjectRecord;
 import com.camel.transform.impl.ProjectTransformerImpl;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.component.restlet.RestletConstants;

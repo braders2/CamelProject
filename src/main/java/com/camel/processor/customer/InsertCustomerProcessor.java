@@ -1,4 +1,4 @@
-package com.camel.procesor.customer;
+package com.camel.processor.customer;
 
 import com.camel.dao.CustomerRepository;
 import com.camel.dao.impl.CustomerRepositoryImpl;

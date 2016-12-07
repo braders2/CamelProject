@@ -1,17 +1,17 @@
 package com.camel.routes;
 
-import com.camel.procesor.FailureResponseProcessor;
-import com.camel.procesor.customer.GetCustomersProcessor;
-import com.camel.utils.Const;
+import com.camel.processor.FailureResponseProcessor;
+import com.camel.processor.customer.GetCustomersProcessor;
 import org.apache.camel.builder.RouteBuilder;
-import org.restlet.data.Method;
 
-import static com.camel.utils.Const.*;
+import static com.camel.utils.Const.RESTLET_METHODS_GET;
+import static com.camel.utils.Const.URL;
 
 public class CustomerRouteBuilder extends RouteBuilder {
-    private final static String RESOURCE = "/customer";
+    private static final String RESOURCE = "/customer";
     private String URL_RESOURCE = URL + RESOURCE;
 
+    @Override
     public void configure() throws Exception {
 
         onException(Exception.class)

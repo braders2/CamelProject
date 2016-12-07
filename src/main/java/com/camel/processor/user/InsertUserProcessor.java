@@ -1,4 +1,4 @@
-package com.camel.procesor.user;
+package com.camel.processor.user;
 
 import com.camel.dao.UserRepository;
 import com.camel.dao.impl.UserRepositoryImpl;

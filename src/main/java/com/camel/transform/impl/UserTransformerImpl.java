@@ -1,10 +1,8 @@
 package com.camel.transform.impl;
 
 import com.camel.dto.UserDTO;
-import com.camel.tables.tables.User;
 import com.camel.tables.tables.records.UserRecord;
 import com.camel.transform.GenericTransformer;
-import com.camel.utils.UtilsDatabaseJooq;
 
 public class UserTransformerImpl implements GenericTransformer<UserDTO, UserRecord> {
 

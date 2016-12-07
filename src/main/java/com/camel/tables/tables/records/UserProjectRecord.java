@@ -5,16 +5,14 @@ package com.camel.tables.tables.records;
 
 
 import com.camel.tables.tables.UserProject;
-
-import java.sql.Date;
-
-import javax.annotation.Generated;
-
 import org.jooq.Field;
 import org.jooq.Record2;
 import org.jooq.Record4;
 import org.jooq.Row4;
 import org.jooq.impl.UpdatableRecordImpl;
+
+import javax.annotation.Generated;
+import java.sql.Date;
 
 
 /**

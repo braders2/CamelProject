@@ -4,21 +4,15 @@
 package com.camel.tables;
 
 
-import com.camel.tables.tables.Customer;
-import com.camel.tables.tables.CustomerStatus;
-import com.camel.tables.tables.Project;
-import com.camel.tables.tables.User;
-import com.camel.tables.tables.UserProject;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.Generated;
-
+import com.camel.tables.tables.*;
 import org.jooq.Catalog;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
+
+import javax.annotation.Generated;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**

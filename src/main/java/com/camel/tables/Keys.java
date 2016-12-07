@@ -4,23 +4,14 @@
 package com.camel.tables;
 
 
-import com.camel.tables.tables.Customer;
-import com.camel.tables.tables.CustomerStatus;
-import com.camel.tables.tables.Project;
-import com.camel.tables.tables.User;
-import com.camel.tables.tables.UserProject;
-import com.camel.tables.tables.records.CustomerRecord;
-import com.camel.tables.tables.records.CustomerStatusRecord;
-import com.camel.tables.tables.records.ProjectRecord;
-import com.camel.tables.tables.records.UserProjectRecord;
-import com.camel.tables.tables.records.UserRecord;
-
-import javax.annotation.Generated;
-
+import com.camel.tables.tables.*;
+import com.camel.tables.tables.records.*;
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.AbstractKeys;
+
+import javax.annotation.Generated;
 
 
 /**
