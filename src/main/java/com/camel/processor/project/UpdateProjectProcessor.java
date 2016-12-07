@@ -27,10 +27,11 @@ public class UpdateProjectProcessor implements Processor {
 
         Preconditions.checkArgument(isInteger(projectId), "Invalid project ID passed to argument: " + projectId);
 
-        ProjectTransformerImpl projectTransformer = new ProjectTransformerImpl();
         String jsonRequestBody = exchange.getIn().getBody(String.class);
-
         ProjectDTO projectDTO = gson.fromJson(jsonRequestBody, ProjectDTO.class);
+        projectDTO.setIdProject(Integer.parseInt(projectId));
+
+        ProjectTransformerImpl projectTransformer = new ProjectTransformerImpl();
         ProjectRecord projectRecord = projectTransformer.convertToEntity(projectDTO);
 
         ProjectRepository projectRepository = new ProjectRepositoryImpl();

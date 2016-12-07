@@ -12,6 +12,7 @@ public class ProjectTransformerImpl implements GenericTransformer<ProjectDTO, Pr
                                     .name(projectRecord.getName())
                                     .timeFrom(projectRecord.getTimeFrom())
                                     .timeTo(projectRecord.getTimeTo())
+                                    .idCustomer(projectRecord.getIdCustomer())
                                     .build();
     }
 
@@ -22,6 +23,7 @@ public class ProjectTransformerImpl implements GenericTransformer<ProjectDTO, Pr
         projectRecord.setName(projectDTO.getName());
         projectRecord.setTimeFrom(projectDTO.getTimeFrom());
         projectRecord.setTimeTo(projectDTO.getTimeTo());
+        projectRecord.setIdCustomer(projectDTO.getIdProject());
         return projectRecord;
     }
 }
