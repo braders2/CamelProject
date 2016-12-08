@@ -25,26 +25,41 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<UserRecord> get(Long aLong) {
-        Optional<UserRecord> userRecordOptional = dslContext.selectFrom(USER)
-                                                            .where(USER.ID_USER.equal(aLong.intValue()))
-                                                            .fetchOptional();
-        dslContext.close();
-        return userRecordOptional;
+        try {
+            Optional<UserRecord> userRecordOptional = dslContext.selectFrom(USER)
+                    .where(USER.ID_USER.equal(aLong.intValue()))
+                    .fetchOptional();
+            dslContext.close();
+            return userRecordOptional;
+        } catch (DataAccessException exception) {
+            LOGGER.error("error get data", exception);
+            throw new DataAccessException("error get data", exception);
+        }
     }
 
     @Override
     public Collection<UserRecord> getAll() {
-        Collection<UserRecord> userRecordCollection = dslContext.selectFrom(USER)
-                .fetch();
-        dslContext.close();
-        return userRecordCollection;
+        try {
+            Collection<UserRecord> userRecordCollection = dslContext.selectFrom(USER)
+                    .fetch();
+            dslContext.close();
+            return userRecordCollection;
+        } catch (DataAccessException exception) {
+            LOGGER.error("error get data", exception);
+            throw new DataAccessException("error get data", exception);
+        }
     }
 
     @Override
     public boolean update(UserRecord entity) {
-        int updatedRecord = dslContext.executeUpdate(entity);
-        dslContext.close();
-        return updatedRecord != 0;
+        try {
+            int updatedRecord = dslContext.executeUpdate(entity);
+            dslContext.close();
+            return updatedRecord != 0;
+        } catch (DataAccessException exception) {
+            LOGGER.error("error get data", exception);
+            throw new DataAccessException("error get data", exception);
+        }
     }
 
     @Override
@@ -61,11 +76,16 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean delete(Long aLong) {
-        int deletedRecord = dslContext.deleteFrom(USER)
-                                      .where(USER.ID_USER.equal(aLong.intValue()))
-                                      .execute();
-        dslContext.close();
-        return deletedRecord != 0;
+        try {
+            int deletedRecord = dslContext.deleteFrom(USER)
+                    .where(USER.ID_USER.equal(aLong.intValue()))
+                    .execute();
+            dslContext.close();
+            return deletedRecord != 0;
+        } catch (DataAccessException exception) {
+            LOGGER.error("error get data", exception);
+            throw new DataAccessException("error get data", exception);
+        }
     }
 
     @Override
