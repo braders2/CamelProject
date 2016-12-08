@@ -1,24 +1,16 @@
 package com.camel.dao.impl;
 
 import com.camel.dao.UserProjectsRepository;
-import com.camel.dto.UserProjectsDTO;
-import com.camel.tables.tables.Project;
-import com.camel.tables.tables.UserProject;
 import com.camel.tables.tables.records.ProjectRecord;
 import com.camel.tables.tables.records.UserProjectRecord;
 import com.camel.utils.UtilsDatabaseJooq;
-import com.google.gson.Gson;
 import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.Result;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import static com.camel.tables.tables.Project.PROJECT;
-import static com.camel.tables.tables.UserProject.*;
+import static com.camel.tables.tables.UserProject.USER_PROJECT;
 
 public class UserProjectsRepositoryImpl implements UserProjectsRepository {
 

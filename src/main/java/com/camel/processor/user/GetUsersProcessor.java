@@ -8,12 +8,13 @@ import com.camel.transform.impl.UserTransformerImpl;
 import com.google.gson.Gson;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.component.restlet.RestletConstants;
 import org.restlet.Response;
-import org.restlet.data.Status;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static org.apache.camel.component.restlet.RestletConstants.RESTLET_RESPONSE;
+import static org.restlet.data.Status.SUCCESS_NO_CONTENT;
 
 public class GetUsersProcessor implements Processor {
 
@@ -34,8 +35,8 @@ public class GetUsersProcessor implements Processor {
 
             exchange.getIn().setBody(gson.toJson(usersDTO));
         } else {
-            Response response = exchange.getIn().getHeader(RestletConstants.RESTLET_RESPONSE, Response.class);
-            response.setStatus(Status.SUCCESS_NO_CONTENT);
+            Response response = exchange.getIn().getHeader(RESTLET_RESPONSE, Response.class);
+            response.setStatus(SUCCESS_NO_CONTENT);
             exchange.getOut().setBody(response);
         }
     }

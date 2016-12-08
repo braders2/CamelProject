@@ -8,9 +8,10 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.component.restlet.RestletConstants;
 import org.restlet.Response;
-import org.restlet.data.Status;
 
 import static com.camel.utils.Const.HEADER_ELEMENT_ID;
+import static org.restlet.data.Status.REDIRECTION_NOT_MODIFIED;
+import static org.restlet.data.Status.SUCCESS_NO_CONTENT;
 
 public class DeleteUserProcessor implements Processor {
 
@@ -24,7 +25,7 @@ public class DeleteUserProcessor implements Processor {
         boolean isDeleted = userRepository.delete(Long.parseLong(userId));
 
         Response response = exchange.getIn().getHeader(RestletConstants.RESTLET_RESPONSE, Response.class);
-        response.setStatus(isDeleted ? Status.SUCCESS_NO_CONTENT : Status.REDIRECTION_NOT_MODIFIED);
+        response.setStatus(isDeleted ? SUCCESS_NO_CONTENT : REDIRECTION_NOT_MODIFIED);
         exchange.getOut().setBody(response);
     }
 }

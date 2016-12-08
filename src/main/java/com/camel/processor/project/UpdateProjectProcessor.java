@@ -9,12 +9,12 @@ import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.component.restlet.RestletConstants;
 import org.restlet.Response;
-import org.restlet.data.Status;
 
 import static com.camel.utils.Const.HEADER_ELEMENT_ID;
 import static com.camel.utils.Precondition.isInteger;
+import static org.apache.camel.component.restlet.RestletConstants.RESTLET_RESPONSE;
+import static org.restlet.data.Status.REDIRECTION_NOT_MODIFIED;
 import static org.restlet.data.Status.SUCCESS_NO_CONTENT;
 
 
@@ -37,8 +37,8 @@ public class UpdateProjectProcessor implements Processor {
         ProjectRepository projectRepository = new ProjectRepositoryImpl();
         boolean isUpdated = projectRepository.update(projectRecord);
 
-        Response response = exchange.getIn().getHeader(RestletConstants.RESTLET_RESPONSE, Response.class);
-        response.setStatus(isUpdated ? SUCCESS_NO_CONTENT : Status.REDIRECTION_NOT_MODIFIED);
+        Response response = exchange.getIn().getHeader(RESTLET_RESPONSE, Response.class);
+        response.setStatus(isUpdated ? SUCCESS_NO_CONTENT : REDIRECTION_NOT_MODIFIED);
         exchange.getOut().setBody(response);
     }
 }

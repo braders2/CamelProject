@@ -8,9 +8,11 @@ import com.camel.transform.impl.ProjectTransformerImpl;
 import com.google.gson.Gson;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.component.restlet.RestletConstants;
 import org.restlet.Response;
-import org.restlet.data.Status;
+
+import static org.apache.camel.component.restlet.RestletConstants.RESTLET_RESPONSE;
+import static org.restlet.data.Status.CLIENT_ERROR_UNPROCESSABLE_ENTITY;
+import static org.restlet.data.Status.SUCCESS_CREATED;
 
 
 public class InsertProjectProcessor implements Processor {
@@ -27,8 +29,8 @@ public class InsertProjectProcessor implements Processor {
         ProjectRepository projectRepository = new ProjectRepositoryImpl();
         boolean isInserted = projectRepository.insert(projectRecord);
 
-        Response response = exchange.getIn().getHeader(RestletConstants.RESTLET_RESPONSE, Response.class);
-        response.setStatus(isInserted ? Status.SUCCESS_CREATED : Status.CLIENT_ERROR_UNPROCESSABLE_ENTITY);
+        Response response = exchange.getIn().getHeader(RESTLET_RESPONSE, Response.class);
+        response.setStatus(isInserted ? SUCCESS_CREATED : CLIENT_ERROR_UNPROCESSABLE_ENTITY);
         exchange.getOut().setBody(response);
     }
 }

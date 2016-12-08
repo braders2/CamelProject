@@ -1,6 +1,5 @@
 package com.camel.dto;
 
-import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,8 +13,4 @@ public class UserProjectsDTO {
     private UserDTO userDTO;
     private List<ProjectDTO> projectDTOS = new ArrayList<ProjectDTO>();
     private Date dateTo;
-
-    public void addProject(ProjectDTO projectDTO) {
-        projectDTOS.add(projectDTO);
-    }
 }

@@ -5,7 +5,8 @@ import com.camel.processor.userprojects.GetUserProjectProcessor;
 import com.camel.utils.Const;
 import org.apache.camel.builder.RouteBuilder;
 
-import static com.camel.utils.Const.*;
+import static com.camel.utils.Const.RESTLET_METHODS_GET;
+import static com.camel.utils.Const.URL;
 
 public class UserProjectRouteBuilder extends RouteBuilder {
     private final static String RESOURCE_USER = "/user";
