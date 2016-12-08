@@ -4,6 +4,9 @@ import com.camel.dao.UserRepository;
 import com.camel.tables.tables.records.UserRecord;
 import com.camel.utils.UtilsDatabaseJooq;
 import org.jooq.DSLContext;
+import org.jooq.exception.DataAccessException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -11,6 +14,8 @@ import java.util.Optional;
 import static com.camel.tables.tables.User.USER;
 
 public class UserRepositoryImpl implements UserRepository {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(UserRepositoryImpl.class);
 
     private DSLContext dslContext;
 
@@ -44,10 +49,14 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean insert(UserRecord entity) {
-        int insertedRecord = dslContext.executeInsert(entity);
-        dslContext.close();
-        return insertedRecord != 0;
-
+        try {
+            int insertedRecord = dslContext.executeInsert(entity);
+            dslContext.close();
+            return insertedRecord != 0;
+        } catch (DataAccessException exception) {
+            LOGGER.error("error insert data", exception);
+            throw new DataAccessException("error insert data", exception);
+        }
     }
 
     @Override

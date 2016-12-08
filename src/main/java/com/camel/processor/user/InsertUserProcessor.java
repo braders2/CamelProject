@@ -10,6 +10,8 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.restlet.Response;
 
+import java.util.Optional;
+
 import static org.apache.camel.component.restlet.RestletConstants.RESTLET_RESPONSE;
 import static org.restlet.data.Status.CLIENT_ERROR_UNPROCESSABLE_ENTITY;
 import static org.restlet.data.Status.SUCCESS_CREATED;
@@ -18,14 +20,21 @@ public class InsertUserProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
+        boolean isInserted = false;
         Gson gson = new Gson();
 
         UserTransformerImpl userTransformer = new UserTransformerImpl();
-        String jsonRequestBody = exchange.getIn().getBody(String.class);
-        UserRecord userRecord = userTransformer.convertToEntity(gson.fromJson(jsonRequestBody, UserDTO.class));
 
-        UserRepository userRepository = new UserRepositoryImpl();
-        boolean isInserted = userRepository.insert(userRecord);
+        String jsonRequestBody = exchange.getIn().getBody(String.class);
+        Optional<UserDTO> optionalUserDTO = Optional.ofNullable(gson.fromJson(jsonRequestBody, UserDTO.class));
+
+        if (optionalUserDTO.isPresent()) {
+            UserDTO userDTO = optionalUserDTO.get();
+            UserRecord userRecord = userTransformer.convertToEntity(userDTO);
+
+            UserRepository userRepository = new UserRepositoryImpl();
+            isInserted = userRepository.insert(userRecord);
+        }
 
         Response response = exchange.getIn().getHeader(RESTLET_RESPONSE, Response.class);
         response.setStatus(isInserted ? SUCCESS_CREATED : CLIENT_ERROR_UNPROCESSABLE_ENTITY);
