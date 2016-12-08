@@ -10,14 +10,9 @@ import java.util.List;
 
 @Getter
 @Setter
-public class UserProjectsDto {
-    @SerializedName("user")
+public class UserProjectsDTO {
     private UserDTO userDTO;
-    @SerializedName("list_projects")
     private List<ProjectDTO> projectDTOS = new ArrayList<ProjectDTO>();
-    @SerializedName("data_from")
-    private Date dateFrom;
-    @SerializedName("data_to")
     private Date dateTo;
 
     public void addProject(ProjectDTO projectDTO) {
