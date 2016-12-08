@@ -4,14 +4,23 @@
 package com.camel.tables;
 
 
-import com.camel.tables.tables.*;
-import com.camel.tables.tables.records.*;
+import com.camel.tables.tables.Customer;
+import com.camel.tables.tables.CustomerStatus;
+import com.camel.tables.tables.Project;
+import com.camel.tables.tables.User;
+import com.camel.tables.tables.UserProject;
+import com.camel.tables.tables.records.CustomerRecord;
+import com.camel.tables.tables.records.CustomerStatusRecord;
+import com.camel.tables.tables.records.ProjectRecord;
+import com.camel.tables.tables.records.UserProjectRecord;
+import com.camel.tables.tables.records.UserRecord;
+
+import javax.annotation.Generated;
+
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.AbstractKeys;
-
-import javax.annotation.Generated;
 
 
 /**
@@ -51,6 +60,8 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<CustomerRecord, CustomerStatusRecord> FK_ID_CUSTOMER_STATUS = ForeignKeys0.FK_ID_CUSTOMER_STATUS;
+    public static final ForeignKey<ProjectRecord, CustomerRecord> FK_ID_CUSTOMER = ForeignKeys0.FK_ID_CUSTOMER;
     public static final ForeignKey<UserProjectRecord, ProjectRecord> FK_PROJECTS_HAS_USERS_PROJECTS = ForeignKeys0.FK_PROJECTS_HAS_USERS_PROJECTS;
     public static final ForeignKey<UserProjectRecord, UserRecord> FK_PROJECTS_HAS_USERS_USERS1 = ForeignKeys0.FK_PROJECTS_HAS_USERS_USERS1;
 
@@ -74,6 +85,8 @@ public class Keys {
     }
 
     private static class ForeignKeys0 extends AbstractKeys {
+        public static final ForeignKey<CustomerRecord, CustomerStatusRecord> FK_ID_CUSTOMER_STATUS = createForeignKey(com.camel.tables.Keys.KEY_CUSTOMER_STATUS_PRIMARY, Customer.CUSTOMER, "FK_ID_CUSTOMER_STATUS", Customer.CUSTOMER.ID_STATUS);
+        public static final ForeignKey<ProjectRecord, CustomerRecord> FK_ID_CUSTOMER = createForeignKey(com.camel.tables.Keys.KEY_CUSTOMER_PRIMARY, Project.PROJECT, "FK_ID_CUSTOMER", Project.PROJECT.ID_CUSTOMER);
         public static final ForeignKey<UserProjectRecord, ProjectRecord> FK_PROJECTS_HAS_USERS_PROJECTS = createForeignKey(com.camel.tables.Keys.KEY_PROJECT_PRIMARY, UserProject.USER_PROJECT, "fk_projects_has_users_projects", UserProject.USER_PROJECT.PROJECTS_ID_PROJECT);
         public static final ForeignKey<UserProjectRecord, UserRecord> FK_PROJECTS_HAS_USERS_USERS1 = createForeignKey(com.camel.tables.Keys.KEY_USER_PRIMARY, UserProject.USER_PROJECT, "fk_projects_has_users_users1", UserProject.USER_PROJECT.USERS_ID_USER);
     }

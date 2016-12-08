@@ -7,13 +7,21 @@ package com.camel.tables.tables;
 import com.camel.tables.Database;
 import com.camel.tables.Keys;
 import com.camel.tables.tables.records.ProjectRecord;
-import org.jooq.*;
-import org.jooq.impl.TableImpl;
 
-import javax.annotation.Generated;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.annotation.Generated;
+
+import org.jooq.Field;
+import org.jooq.ForeignKey;
+import org.jooq.Identity;
+import org.jooq.Schema;
+import org.jooq.Table;
+import org.jooq.TableField;
+import org.jooq.UniqueKey;
+import org.jooq.impl.TableImpl;
 
 
 /**
@@ -29,7 +37,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Project extends TableImpl<ProjectRecord> {
 
-    private static final long serialVersionUID = -1943835089;
+    private static final long serialVersionUID = -467671100;
 
     /**
      * The reference instance of <code>database.project</code>
@@ -121,6 +129,14 @@ public class Project extends TableImpl<ProjectRecord> {
     @Override
     public List<UniqueKey<ProjectRecord>> getKeys() {
         return Arrays.<UniqueKey<ProjectRecord>>asList(Keys.KEY_PROJECT_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<ProjectRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<ProjectRecord, ?>>asList(Keys.FK_ID_CUSTOMER);
     }
 
     /**

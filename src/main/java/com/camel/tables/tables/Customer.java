@@ -7,13 +7,21 @@ package com.camel.tables.tables;
 import com.camel.tables.Database;
 import com.camel.tables.Keys;
 import com.camel.tables.tables.records.CustomerRecord;
-import org.jooq.*;
-import org.jooq.impl.TableImpl;
 
-import javax.annotation.Generated;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.annotation.Generated;
+
+import org.jooq.Field;
+import org.jooq.ForeignKey;
+import org.jooq.Identity;
+import org.jooq.Schema;
+import org.jooq.Table;
+import org.jooq.TableField;
+import org.jooq.UniqueKey;
+import org.jooq.impl.TableImpl;
 
 
 /**
@@ -29,7 +37,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Customer extends TableImpl<CustomerRecord> {
 
-    private static final long serialVersionUID = 868219294;
+    private static final long serialVersionUID = -695817024;
 
     /**
      * The reference instance of <code>database.customer</code>
@@ -126,6 +134,14 @@ public class Customer extends TableImpl<CustomerRecord> {
     @Override
     public List<UniqueKey<CustomerRecord>> getKeys() {
         return Arrays.<UniqueKey<CustomerRecord>>asList(Keys.KEY_CUSTOMER_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<CustomerRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<CustomerRecord, ?>>asList(Keys.FK_ID_CUSTOMER_STATUS);
     }
 
     /**
