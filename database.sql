@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Czas generowania: 06 Gru 2016, 14:34
+-- Czas generowania: 08 Gru 2016, 15:08
 -- Wersja serwera: 10.1.19-MariaDB
 -- Wersja PHP: 5.6.28
 
@@ -90,8 +90,8 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`id_project`, `name`, `time_from`, `time_to`, `id_customer`) VALUES
-(1, 'Modelowanie dyskretne', '2016-11-09', '2016-11-24', 0),
-(3, 'Modelowanie dyskretne3', '2016-11-09', '2016-11-24', 0);
+(1, 'Modelowanie dyskretne', '2016-11-09', '2016-11-24', 1),
+(3, 'Modelowanie dyskretne3', '2016-11-09', '2016-11-24', 2);
 
 -- --------------------------------------------------------
 
@@ -205,11 +205,23 @@ ALTER TABLE `user`
 --
 
 --
+-- Ograniczenia dla tabeli `customer`
+--
+ALTER TABLE `customer`
+  ADD CONSTRAINT `FK_ID_CUSTOMER_STATUS` FOREIGN KEY (`id_status`) REFERENCES `customer_status` (`id`);
+
+--
+-- Ograniczenia dla tabeli `project`
+--
+ALTER TABLE `project`
+  ADD CONSTRAINT `FK_ID_CUSTOMER` FOREIGN KEY (`id_customer`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Ograniczenia dla tabeli `user_project`
 --
 ALTER TABLE `user_project`
-  ADD CONSTRAINT `fk_projects_has_users_projects` FOREIGN KEY (`projects_id_project`) REFERENCES `project` (`id_project`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_projects_has_users_users1` FOREIGN KEY (`users_id_user`) REFERENCES `user` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_projects_has_users_projects` FOREIGN KEY (`projects_id_project`) REFERENCES `project` (`id_project`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_projects_has_users_users1` FOREIGN KEY (`users_id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
