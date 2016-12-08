@@ -53,7 +53,7 @@ public class UserProjectsRepositoryImpl implements UserProjectsRepository {
     @Override
     public Collection<ProjectRecord> getAllUserProjects(Long id) {
         Collection<ProjectRecord> projectRecords = dslContext.selectFrom(PROJECT.join(USER_PROJECT)
-                                                             .on(USER_PROJECT.PROJECT_ID_PROJECT.equal(PROJECT.ID_PROJECT)))
+                                                             .on(USER_PROJECT.PROJECTS_ID_PROJECT.equal(PROJECT.ID_PROJECT)))
                                                              .where(USER_PROJECT.USERS_ID_USER.equal(id.intValue()))
                                                              .fetchInto(PROJECT);
         dslContext.close();
