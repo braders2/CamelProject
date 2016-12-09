@@ -3,6 +3,7 @@ package com.camel.processor.user;
 import com.camel.dao.UserRepository;
 import com.camel.dao.impl.UserRepositoryImpl;
 import com.camel.dto.UserDTO;
+import com.camel.processor.AbstractRestfullProcessor;
 import com.camel.tables.tables.records.UserRecord;
 import com.camel.transform.impl.UserTransformerImpl;
 import com.camel.utils.Precondition;
@@ -17,17 +18,16 @@ import static org.apache.camel.component.restlet.RestletConstants.RESTLET_RESPON
 import static org.restlet.data.Status.REDIRECTION_NOT_MODIFIED;
 import static org.restlet.data.Status.SUCCESS_NO_CONTENT;
 
-public class UpdateUserProcessor implements Processor {
+public class UpdateUserProcessor extends AbstractRestfullProcessor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
-        Gson gson = new Gson();
         String userId = exchange.getIn().getHeader(HEADER_ELEMENT_ID, String.class);
 
         Preconditions.checkArgument(Precondition.isInteger(userId), "Invalid user ID passed to argument: " + userId);
 
         String jsonRequestBody = exchange.getIn().getBody(String.class);
-        UserDTO userDTO = gson.fromJson(jsonRequestBody, UserDTO.class);
+        UserDTO userDTO = convertFromJson(jsonRequestBody, UserDTO.class);
         userDTO.setIdUser(Integer.parseInt(userId));
 
         UserTransformerImpl userTransformer = new UserTransformerImpl();

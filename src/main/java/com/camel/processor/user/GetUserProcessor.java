@@ -3,6 +3,7 @@ package com.camel.processor.user;
 import com.camel.dao.UserRepository;
 import com.camel.dao.impl.UserRepositoryImpl;
 import com.camel.dto.UserDTO;
+import com.camel.processor.AbstractRestfullProcessor;
 import com.camel.tables.tables.records.UserRecord;
 import com.camel.transform.GenericTransformer;
 import com.camel.transform.impl.UserTransformerImpl;
@@ -19,23 +20,22 @@ import static com.camel.utils.Const.HEADER_ELEMENT_ID;
 import static org.apache.camel.component.restlet.RestletConstants.RESTLET_RESPONSE;
 import static org.restlet.data.Status.SUCCESS_NO_CONTENT;
 
-public class GetUserProcessor implements Processor {
+public class GetUserProcessor extends AbstractRestfullProcessor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
         String userId = exchange.getIn().getHeader(HEADER_ELEMENT_ID, String.class);
-        Gson gson = new Gson();
-        UserRepository userRepository = new UserRepositoryImpl();
 
         Preconditions.checkArgument(Precondition.isInteger(userId), "Invalid user ID passed to argument: " + userId);
 
+        UserRepository userRepository = new UserRepositoryImpl();
         Optional<UserRecord> userRecord = userRepository.get(Long.parseLong(userId));
         if (userRecord.isPresent()) {
             UserRecord userData = userRecord.get();
             GenericTransformer<UserDTO, UserRecord> userTransformer = new UserTransformerImpl();
             UserDTO userDTO = userTransformer.convertToDto(userData);
 
-            exchange.getIn().setBody(gson.toJson(userDTO));
+            exchange.getIn().setBody(convertToJson(userDTO));
         } else {
             Response response = exchange.getIn().getHeader(RESTLET_RESPONSE, Response.class);
             response.setStatus(SUCCESS_NO_CONTENT);

@@ -3,6 +3,7 @@ package com.camel.processor.user;
 import com.camel.dao.UserRepository;
 import com.camel.dao.impl.UserRepositoryImpl;
 import com.camel.dto.UserDTO;
+import com.camel.processor.AbstractRestfullProcessor;
 import com.camel.tables.tables.records.UserRecord;
 import com.camel.transform.impl.UserTransformerImpl;
 import com.google.gson.Gson;
@@ -16,17 +17,16 @@ import static org.apache.camel.component.restlet.RestletConstants.RESTLET_RESPON
 import static org.restlet.data.Status.CLIENT_ERROR_UNPROCESSABLE_ENTITY;
 import static org.restlet.data.Status.SUCCESS_CREATED;
 
-public class InsertUserProcessor implements Processor {
+public class InsertUserProcessor extends AbstractRestfullProcessor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
         boolean isInserted = false;
-        Gson gson = new Gson();
 
         UserTransformerImpl userTransformer = new UserTransformerImpl();
 
         String jsonRequestBody = exchange.getIn().getBody(String.class);
-        Optional<UserDTO> optionalUserDTO = Optional.ofNullable(gson.fromJson(jsonRequestBody, UserDTO.class));
+        Optional<UserDTO> optionalUserDTO = Optional.ofNullable(convertFromJson(jsonRequestBody, UserDTO.class));
 
         if (optionalUserDTO.isPresent()) {
             UserDTO userDTO = optionalUserDTO.get();
