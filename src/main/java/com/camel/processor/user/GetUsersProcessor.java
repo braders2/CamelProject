@@ -24,6 +24,7 @@ public class GetUsersProcessor implements Processor {
         UserRepository userRepository = new UserRepositoryImpl();
 
         Collection<UserRecord> userRecords = userRepository.getAll();
+
         if (!userRecords.isEmpty()) {
             UserTransformerImpl userTransformer = new UserTransformerImpl();
             Collection<UserDTO> usersDTO = new ArrayList<>();

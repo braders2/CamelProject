@@ -6,11 +6,13 @@ import com.camel.tables.tables.records.CustomerRecord;
 import com.camel.utils.UtilsDatabaseJooq;
 import org.jooq.DSLContext;
 
+import javax.inject.Named;
 import java.util.Collection;
 import java.util.Optional;
 
 import static com.camel.tables.tables.Customer.CUSTOMER;
 
+@Named("customerRepository")
 public class CustomerRepositoryImpl implements CustomerRepository {
 
     private DSLContext dslContext;

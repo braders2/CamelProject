@@ -9,7 +9,7 @@ import static com.camel.utils.Const.URL;
 
 public class CustomerRouteBuilder extends RouteBuilder {
     private static final String RESOURCE = "/customer";
-    private String URL_RESOURCE = URL + RESOURCE;
+    private static final String URL_RESOURCE = URL + RESOURCE;
 
     @Override
     public void configure() throws Exception {

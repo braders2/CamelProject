@@ -4,6 +4,9 @@ import com.camel.dto.CustomerDTO;
 import com.camel.tables.tables.records.CustomerRecord;
 import com.camel.transform.GenericTransformer;
 
+import javax.inject.Named;
+
+@Named("customerTransformer")
 public class CustomerTransformerImpl implements GenericTransformer<CustomerDTO, CustomerRecord> {
     @Override
     public CustomerDTO convertToDto(CustomerRecord customerRecord) {
