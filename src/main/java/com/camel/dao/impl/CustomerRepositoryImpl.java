@@ -17,16 +17,16 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     public CustomerRepositoryImpl() {
         dslContext = UtilsDatabaseJooq.getDslContext();
+
     }
+
 
     @Override
     public Optional<CustomerRecord> get(Long aLong) {
-
-        Optional<CustomerRecord> customerRecord =  dslContext
+        Optional<CustomerRecord> customerRecord = dslContext
                 .selectFrom(CUSTOMER)
                 .where(CUSTOMER.ID.equal(aLong.intValue()))
                 .fetchOptional();
-        dslContext.close();
 
         return customerRecord;
     }
@@ -68,7 +68,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public boolean delete(Long aLong) {
-        int deletedRecord =  dslContext
+        int deletedRecord = dslContext
                 .delete(CUSTOMER)
                 .where(CUSTOMER.ID.equal(aLong.intValue()))
                 .execute();
@@ -82,4 +82,5 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 .execute();
         return deletedRecords != 0;
     }
+
 }
