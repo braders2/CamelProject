@@ -1,6 +1,7 @@
 package com.camel.dao.impl;
 
 import com.camel.dao.UserRepository;
+import com.camel.interfaces.functional.FunctionalInterfaceDao;
 import com.camel.tables.tables.records.UserRecord;
 import com.camel.utils.UtilsDatabaseJooq;
 import org.jooq.DSLContext;
@@ -26,11 +27,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Optional<UserRecord> get(Long aLong) {
         try {
-            Optional<UserRecord> userRecordOptional = dslContext.selectFrom(USER)
+            FunctionalInterfaceDao<Optional<UserRecord>> functionalInterfaceDao = () -> dslContext.selectFrom(USER)
                     .where(USER.ID_USER.equal(aLong.intValue()))
                     .fetchOptional();
-            dslContext.close();
-            return userRecordOptional;
+            return functionalInterfaceDao.execute(dslContext);
         } catch (DataAccessException exception) {
             LOGGER.error("error get data", exception);
             throw new DataAccessException("error get data", exception);
@@ -40,10 +40,9 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Collection<UserRecord> getAll() {
         try {
-            Collection<UserRecord> userRecordCollection = dslContext.selectFrom(USER)
-                    .fetch();
-            dslContext.close();
-            return userRecordCollection;
+            FunctionalInterfaceDao<Collection<UserRecord>> functionalInterfaceDao = () -> dslContext.selectFrom(USER)
+                                                                                .fetch();
+            return functionalInterfaceDao.execute(dslContext);
         } catch (DataAccessException exception) {
             LOGGER.error("error get data", exception);
             throw new DataAccessException("error get data", exception);
