@@ -7,6 +7,7 @@ import org.jooq.impl.DSL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.function.Function;
 
 public class UtilsDatabaseJooq {
     private static final String USERNAME = "root";
@@ -15,6 +16,14 @@ public class UtilsDatabaseJooq {
 
     private static Connection connection;
     private static DSLContext dslContext;
+
+
+    public static <T> T executeQuery(Function<DSLContext, T> consumer) {
+        DSLContext dslContext = getDslContext();
+        T result = consumer.apply(dslContext);
+        dslContext.close();
+        return result;
+    }
 
     public static DSLContext getDslContext() {
         if (dslContext == null) {
