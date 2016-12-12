@@ -21,9 +21,9 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Optional<UserRecord> get(Long aLong) {
         try {
-            Function<DSLContext, Optional<UserRecord>> function = (dslContext) -> dslContext.selectFrom(USER)
-                    .where(USER.ID_USER.equal(aLong.intValue()))
-                    .fetchOptional();
+            Function<DSLContext, Optional<UserRecord>> function = dslContext -> dslContext.selectFrom(USER)
+                                                                                            .where(USER.ID_USER.equal(aLong.intValue()))
+                                                                                            .fetchOptional();
             return UtilsDatabaseJooq.executeQuery(function);
         } catch (DataAccessException exception) {
             LOGGER.error("error get data", exception);
@@ -34,7 +34,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Collection<UserRecord> getAll() {
         try {
-            Function<DSLContext, Collection<UserRecord>> function = (dslContext) -> dslContext.selectFrom(USER)
+            Function<DSLContext, Collection<UserRecord>> function = dslContext -> dslContext.selectFrom(USER)
                     .fetch();
             return UtilsDatabaseJooq.executeQuery(function);
         } catch (DataAccessException exception) {
@@ -46,7 +46,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean update(UserRecord entity) {
         try {
-            Function<DSLContext, Integer> function = (dslContext) -> dslContext.executeUpdate(entity);
+            Function<DSLContext, Integer> function = dslContext -> dslContext.executeUpdate(entity);
             return UtilsDatabaseJooq.executeQuery(function) != 0;
         } catch (DataAccessException exception) {
             LOGGER.error("error get data", exception);
@@ -57,7 +57,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean insert(UserRecord entity) {
         try {
-            Function<DSLContext, Integer> function = (dslContext) -> dslContext.executeInsert(entity);
+            Function<DSLContext, Integer> function = dslContext -> dslContext.executeInsert(entity);
             return UtilsDatabaseJooq.executeQuery(function) != 0;
         } catch (DataAccessException exception) {
             LOGGER.error("error insert data", exception);
@@ -68,7 +68,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean delete(Long aLong) {
         try {
-            Function<DSLContext, Integer> function = (dslContext) -> dslContext.deleteFrom(USER)
+            Function<DSLContext, Integer> function = dslContext -> dslContext.deleteFrom(USER)
                                                                                 .where(USER.ID_USER.equal(aLong.intValue()))
                                                                                 .execute();
             return UtilsDatabaseJooq.executeQuery(function) != 0;
