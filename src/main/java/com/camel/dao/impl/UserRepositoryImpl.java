@@ -28,8 +28,8 @@ public class UserRepositoryImpl implements UserRepository {
     public Optional<UserRecord> get(Long aLong) {
         try {
             FunctionalInterfaceDao<Optional<UserRecord>> functionalInterfaceDao = () -> dslContext.selectFrom(USER)
-                    .where(USER.ID_USER.equal(aLong.intValue()))
-                    .fetchOptional();
+                                                                                        .where(USER.ID_USER.equal(aLong.intValue()))
+                                                                                        .fetchOptional();
             return functionalInterfaceDao.execute(dslContext);
         } catch (DataAccessException exception) {
             LOGGER.error("error get data", exception);
@@ -41,7 +41,7 @@ public class UserRepositoryImpl implements UserRepository {
     public Collection<UserRecord> getAll() {
         try {
             FunctionalInterfaceDao<Collection<UserRecord>> functionalInterfaceDao = () -> dslContext.selectFrom(USER)
-                                                                                .fetch();
+                                                                                                    .fetch();
             return functionalInterfaceDao.execute(dslContext);
         } catch (DataAccessException exception) {
             LOGGER.error("error get data", exception);
