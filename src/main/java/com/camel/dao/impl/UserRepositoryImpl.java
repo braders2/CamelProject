@@ -35,7 +35,7 @@ public class UserRepositoryImpl implements UserRepository {
     public Collection<UserRecord> getAll() {
         try {
             Function<DSLContext, Collection<UserRecord>> function = dslContext -> dslContext.selectFrom(USER)
-                    .fetch();
+                                                                                            .fetch();
             return UtilsDatabaseJooq.executeQuery(function);
         } catch (DataAccessException exception) {
             LOGGER.error("error get data", exception);
